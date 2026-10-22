@@ -7,9 +7,9 @@ This repository is Nonius's product page, served at
 <https://andrelaf.github.io/nonius-site/>, and its public
 specifications:
 
-- [`specs/protocol.md`](specs/protocol.md): the wire protocol, history
-  in tiles over HTTP and a live feed over WebSocket, written to be
-  implemented without Nonius's code;
+- [`specs/protocol.md`](specs/protocol.md): the wire protocol, a
+  history in tiles over HTTP and its images, written to be implemented
+  without Nonius's code;
 - [`specs/pyramid-file.md`](specs/pyramid-file.md): a series and its
   pyramid of summaries in one file, read in place.
 
