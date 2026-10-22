@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nonius — dense time series, exact to the nanosecond</title>
+<meta name="description" content="Nonius draws time series of millions of points in the browser, in native programs and on servers, exact to the nanosecond at any zoom: one Rust core from server to pixel, and its own columnar format.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="name">Nonius</p>
+    <h1>Dense time series, exact to the nanosecond at any zoom.</h1>
+    <p class="lede">Millions of points in a browser, a desktop program or a server's
+    images, every one where it belongs however far you zoom in. One Rust core
+    summarises a series on the server and draws it on the screen.</p>
+    <p class="status">Not published yet: the packages for Rust, npm and .NET are coming.</p>
+    <nav class="links">
+      <a href="#why">Why</a>
+      <a href="#how">How it fits</a>
+      <a href="#use">Use it</a>
+      <a href="#specs">Specifications</a>
+    </nav>
+  </div>
+  <figure class="wrap shot">
+    <img src="img/deep-zoom.png" width="800" height="400" alt="A chart of a day of points zooms in forty billion times, to two microseconds, its time labels going from hours of the day to nanoseconds, the points of a burst a few hundred nanoseconds apart drawn apart">
+    <figcaption>A day of points, one a second, zoomed to two microseconds of a burst
+    inside it. Drawn by the browser package, frame by frame.</figcaption>
+  </figure>
+</header>
+
+<main>
+
+<section id="why" class="wrap">
+  <h2>Why Nonius</h2>
+  <div class="reasons">
+    <article>
+      <h3>Exact at deep zoom</h3>
+      <p>A chart that keeps time as a 32-bit float, as GPU charts commonly do,
+      cannot tell apart two instants of 2025 less than about two minutes apart.
+      Nonius keeps time as 64-bit nanoseconds until the start of the visible
+      window has been taken off; only the small offsets that remain become
+      floats.</p>
+    </article>
+    <article>
+      <h3>One core, from server to pixel</h3>
+      <p>The server's tiles and images and the browser's frame come from the same
+      Rust code, compiled to WebAssembly for the page. A page that puts tiles
+      together draws what a page holding the whole series draws, and the
+      server's PNG is the browser's frame.</p>
+    </article>
+    <article>
+      <h3>Its own format, read in place</h3>
+      <p>A series travels as <code>NSB1</code>: little-endian columns aligned to
+      64 bytes, the layout of Arrow buffers. The browser copies the bytes once
+      into the chart's memory and reads them there: no JSON, no decoder. A live
+      feed is numbered frames on a WebSocket, and a lost one is recovered.</p>
+    </article>
+  </div>
+  <figure class="shot narrow">
+    <img src="img/quick-start.png" width="640" height="320" alt="A line through four points 250 nanoseconds apart, the time axis labelled in nanoseconds after midnight">
+    <figcaption>Four points 250 nanoseconds apart, at the first instant of 2025,
+    drawn from a file on the CPU.</figcaption>
+  </figure>
+</section>
+
+<section id="how" class="wrap">
+  <h2>How it fits</h2>
+  <p>Your server cuts a series into tiles and images; the page runs the same core
+  and renderer as WebAssembly, on WebGPU, WebGL2 or a 2D canvas. Natively, Rust
+  programs use the crates, and C and .NET call the same core.</p>
+  <figure class="diagram">
+    <img src="img/architecture.svg" width="960" height="600" alt="Your server cuts a series into tiles and images with nonius-core and nonius-render; tiles travel as NSB1 columns and a live feed as numbered frames; your page runs the same core and renderer compiled to WebAssembly; natively, Rust, C and .NET use the same crates.">
+  </figure>
+</section>
+
+<section id="use" class="wrap">
+  <h2>Use it</h2>
+  <p>A point is a time in nanoseconds, a value and a weight. A value is an integer
+  of a fixed number of decimal places, so <code>101.25</code> stays
+  <code>101.25</code> from your data to the frame.</p>
+
+  <h3>Rust: a series file to a picture, with no GPU</h3>
+<pre data-not-run="the crates are not on crates.io yet"><code>cargo add nonius-format nonius-core
+cargo add nonius-render --no-default-features</code></pre>
+  <p>Read the file in place, keep it as a pyramid of summaries, and draw any view
+  of it:</p>
+<pre data-quote="crates/nonius-render/examples/still.rs"><code>let bytes = AlignedBytes::from_slice(&amp;std::fs::read(nsb)?);
+let container = Container::parse_checked(bytes.as_slice())?;
+let series = Series::from_container(&amp;container)?;</code></pre>
+<pre data-quote="crates/nonius-render/examples/still.rs"><code>let image = still_png(
+    &amp;loaded,
+    &amp;Still {
+        start,
+        end,
+        width: 1280,
+        height: 640,
+        theme: Theme::dark(),
+        ratio: 1.0,
+        scale: series.scale(),
+    },
+)?;</code></pre>
+
+  <h3>The browser: a chart a person can pan and zoom</h3>
+<pre data-not-run="the package is not on npm yet"><code>npm install nonius</code></pre>
+<pre data-quote="examples/web/vanilla/main.js"><code>const chart = await createChart(canvas);
+
+// Your points: times in nanoseconds since 1970 as BigInts, values as
+// integers with a fixed number of decimal places (2 here: 10_000 is
+// 100.00), and a weight each.
+const { t, v, w } = randomWalk();
+chart.setScale(2);
+chart.push(t, v, w);
+
+// Open on everything, the value axis fitted to it.
+const [start, end] = [t[0], t[t.length - 1] + 1n];
+const [lo, hi] = chart.autoscale(start, end, 0, 8);
+chart.setView(start, end, lo, hi);</code></pre>
+  <p>WebGPU where the browser has it, WebGL2 otherwise, and a 2D canvas when
+  neither gives a device. The package also follows a server's tiles and streams
+  a live feed from a worker; React and Vue use it as any other module.</p>
+
+  <h3>.NET: the same core, from C#</h3>
+<pre data-not-run="the packages are not on NuGet yet"><code>dotnet add package Nonius</code></pre>
+<pre data-quote="dotnet/tests/Nonius.Tests/QuickStart.cs"><code>using var series = Series.FromNsb(File.ReadAllBytes(nsb));
+if (!series.TryGetRange(out var first, out var last))
+{
+    throw new InvalidDataException($"{nsb} holds no points");
+}
+byte[] image = series.StillPng(new Still(first, last + 1, 1280, 640));
+File.WriteAllBytes(png, image);</code></pre>
+  <p><code>Nonius.Avalonia</code> is a desktop chart control, and
+  <code>Nonius.Blazor</code> a component carrying the browser package.</p>
+</section>
+
+<section id="packages" class="wrap">
+  <h2>The packages</h2>
+  <table>
+    <thead><tr><th>Package</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td><code>nonius-core</code></td><td>Points, series, the pyramid of summaries, tiles, autoscale, axes.</td></tr>
+      <tr><td><code>nonius-format</code></td><td><code>NSB1</code>, the columnar container, written and read in place.</td></tr>
+      <tr><td><code>nonius-render</code></td><td>The renderer: on the GPU with wgpu, or on the CPU with no device.</td></tr>
+      <tr><td><code>nonius-server</code></td><td>The reference server: a series in tiles and images over HTTP.</td></tr>
+      <tr><td><code>nonius-live</code></td><td>A live feed's client: frames, gaps, recovery, reconnection.</td></tr>
+      <tr><td><code>nonius-capi</code></td><td>The C interface, with its header.</td></tr>
+      <tr><td><code>nonius</code> (npm)</td><td>The browser package.</td></tr>
+      <tr><td><code>Nonius</code>, <code>Nonius.Avalonia</code>, <code>Nonius.Blazor</code> (NuGet)</td><td>.NET.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="specs" class="wrap">
+  <h2>Specifications</h2>
+  <p>The wire protocol is written to be implemented without reading Nonius's
+  code: a client was written from it alone, and its columns match the core's.</p>
+  <ul>
+    <li><a href="https://github.com/andrelaf/nonius-site/blob/main/specs/protocol.md">The protocol</a>: tiles over HTTP and a live feed over WebSocket.</li>
+    <li><a href="https://github.com/andrelaf/nonius-site/blob/main/specs/pyramid-file.md">The pyramid file</a>: a series and its summaries, read in place.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p>MIT or Apache-2.0, at your option. The axis labels are drawn with Inter,
+  under the SIL Open Font License. Work in progress.</p>
+</footer>
+
+</body>
+</html>
