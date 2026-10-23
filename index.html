@@ -17,7 +17,7 @@
     <p class="lede">Millions of points in a browser, a desktop program or a server's
     images, every one where it belongs however far you zoom in. One Rust core
     summarises a series on the server and draws it on the screen.</p>
-    <p class="status">Not published yet: the packages for Rust, npm and .NET are coming.</p>
+    <p class="status">On <a href="https://crates.io/crates/nonius-core">crates.io</a> and <a href="https://www.npmjs.com/package/nonius">npm</a>; the .NET packages are coming to NuGet.</p>
     <nav class="links">
       <a href="#why">Why</a>
       <a href="#how">How it fits</a>
@@ -84,28 +84,45 @@
   <code>101.25</code> from your data to the frame.</p>
 
   <h3>Rust: a series file to a picture, with no GPU</h3>
-<pre data-not-run="the crates are not on crates.io yet"><code>cargo add nonius-format nonius-core
+<pre data-quote="crates/check-registry.sh"><code>cargo add nonius-format nonius-core
 cargo add nonius-render --no-default-features</code></pre>
   <p>Read the file in place, keep it as a pyramid of summaries, and draw any view
-  of it:</p>
-<pre data-quote="crates/nonius-render/examples/still.rs"><code>let bytes = AlignedBytes::from_slice(&amp;std::fs::read(nsb)?);
-let container = Container::parse_checked(bytes.as_slice())?;
-let series = Series::from_container(&amp;container)?;</code></pre>
-<pre data-quote="crates/nonius-render/examples/still.rs"><code>let image = still_png(
-    &amp;loaded,
-    &amp;Still {
-        start,
-        end,
-        width: 1280,
-        height: 640,
-        theme: Theme::dark(),
-        ratio: 1.0,
+  of it, here the whole series:</p>
+<pre data-quote="crates/nonius-render/README.md"><code>use nonius_core::{Loaded, Pyramid, Series, Width};
+use nonius_format::{AlignedBytes, Container};
+use nonius_render::{Still, Theme, still_png};
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    // Read once into memory aligned for the columns, then read in place.
+    let bytes = AlignedBytes::from_slice(&amp;std::fs::read("day.nsb")?);
+    let container = Container::parse_checked(bytes.as_slice())?;
+    let series = Series::from_container(&amp;container)?;
+
+    // Summaries from one second up, nine levels (see nonius-core's
+    // "Choosing the pyramid").
+    let mut pyramid = Pyramid::new(Width::new(1_000_000_000)?, 9)?;
+    pyramid.extend_sorted(series.iter())?;
+    let loaded = Loaded::new(&amp;pyramid, (series.t(), series.v(), series.w()));
+
+    let (Some(&amp;first), Some(&amp;last)) = (series.t().first(), series.t().last()) else {
+        return Err("the file holds no points".into());
+    };
+    // The image's size is in device pixels; `ratio` scales labels and lines.
+    let png = still_png(&amp;loaded, &amp;Still {
+        start: first,
+        end: last + 1,
+        width: 2400,
+        height: 800,
+        theme: Theme::light(),
+        ratio: 2.0,
         scale: series.scale(),
-    },
-)?;</code></pre>
+    })?;
+    std::fs::write("day.png", png)?;
+    Ok(())
+}</code></pre>
 
   <h3>The browser: a chart a person can pan and zoom</h3>
-<pre data-not-run="the package is not on npm yet"><code>npm install nonius</code></pre>
+<pre data-quote="crates/check-registry.sh"><code>npm install nonius</code></pre>
 <pre data-quote="examples/web/vanilla/main.js"><code>const chart = await createChart(canvas);
 
 // Your points: times in nanoseconds since 1970 as BigInts, values as
@@ -124,13 +141,15 @@ chart.setView(start, end, lo, hi);</code></pre>
   a live feed from a worker; React and Vue use it as any other module.</p>
 
   <h3>.NET: the same core, from C#</h3>
-<pre data-not-run="the packages are not on NuGet yet"><code>dotnet add package Nonius</code></pre>
+<pre data-not-run="the packages are not on NuGet yet: they publish from GitHub Actions"><code>dotnet add package Nonius</code></pre>
 <pre data-quote="dotnet/tests/Nonius.Tests/QuickStart.cs"><code>using var series = Series.FromNsb(File.ReadAllBytes(nsb));
 if (!series.TryGetRange(out var first, out var last))
 {
     throw new InvalidDataException($"{nsb} holds no points");
 }
-byte[] image = series.StillPng(new Still(first, last + 1, 1280, 640));
+// Light, for a box of 1200 × 400 CSS pixels at a pixel ratio of 2:
+// the size is in device pixels, the ratio in thousandths.
+byte[] image = series.StillPng(new Still(first, last + 1, 2400, 800, Theme.Light, RatioPermille: 2000));
 File.WriteAllBytes(png, image);</code></pre>
   <p><code>Nonius.Avalonia</code> is a desktop chart control, and
   <code>Nonius.Blazor</code> a component carrying the browser package.</p>
@@ -141,14 +160,15 @@ File.WriteAllBytes(png, image);</code></pre>
   <table>
     <thead><tr><th>Package</th><th>What it is</th></tr></thead>
     <tbody>
-      <tr><td><code>nonius-core</code></td><td>Points, series, the pyramid of summaries, tiles, autoscale, axes.</td></tr>
-      <tr><td><code>nonius-format</code></td><td><code>NSB1</code>, the columnar container, written and read in place.</td></tr>
-      <tr><td><code>nonius-render</code></td><td>The renderer: on the GPU with wgpu, or on the CPU with no device.</td></tr>
-      <tr><td><code>nonius-server</code></td><td>The reference server: a series in tiles and images over HTTP.</td></tr>
-      <tr><td><code>nonius-live</code></td><td>A live feed's client: frames, gaps, recovery, reconnection.</td></tr>
-      <tr><td><code>nonius-capi</code></td><td>The C interface, with its header.</td></tr>
-      <tr><td><code>nonius</code> (npm)</td><td>The browser package.</td></tr>
-      <tr><td><code>Nonius</code>, <code>Nonius.Avalonia</code>, <code>Nonius.Blazor</code> (NuGet)</td><td>.NET.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-core"><code>nonius-core</code></a></td><td>Points, series, the pyramid of summaries, tiles, autoscale, axes.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-format"><code>nonius-format</code></a></td><td><code>NSB1</code>, the columnar container, written and read in place.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-render"><code>nonius-render</code></a></td><td>The renderer: on the GPU with wgpu, or on the CPU with no device.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-text"><code>nonius-text</code></a></td><td>The axis labels' font, Inter, rasterised into an atlas.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-server"><code>nonius-server</code></a></td><td>The reference server: a series in tiles and images over HTTP.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-live"><code>nonius-live</code></a></td><td>A live feed's client: frames, gaps, recovery, reconnection.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-capi"><code>nonius-capi</code></a></td><td>The C interface, with its header.</td></tr>
+      <tr><td><a href="https://www.npmjs.com/package/nonius"><code>nonius</code></a> (npm)</td><td>The browser package.</td></tr>
+      <tr><td><code>Nonius</code>, <code>Nonius.Avalonia</code>, <code>Nonius.Blazor</code> (NuGet)</td><td>.NET, coming to NuGet.</td></tr>
     </tbody>
   </table>
 </section>

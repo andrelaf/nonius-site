@@ -13,6 +13,8 @@ specifications:
 - [`specs/pyramid-file.md`](specs/pyramid-file.md): a series and its
   pyramid of summaries in one file, read in place.
 
-Nonius's packages, for Rust, npm and .NET, are not published yet.
+Nonius's Rust crates are on [crates.io](https://crates.io/crates/nonius-core)
+and its browser package on [npm](https://www.npmjs.com/package/nonius); the
+.NET packages are coming to NuGet.
 
 MIT or Apache-2.0, at your option.
