@@ -6,13 +6,14 @@
 <title>Nonius — dense time series, exact to the nanosecond</title>
 <meta name="description" content="Nonius draws time series of millions of points in the browser, in native programs and on servers, exact to the nanosecond at any zoom: one Rust core from server to pixel, and its own columnar format.">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="hero">
   <div class="wrap">
-    <p class="name">Nonius</p>
+    <p class="name"><img src="img/lockup.svg" width="128" height="36" alt="Nonius"></p>
     <h1>Dense time series, exact to the nanosecond at any zoom.</h1>
     <p class="lede">Millions of points in a browser, a desktop program or a server's
     images, every one where it belongs however far you zoom in. One Rust core
@@ -20,6 +21,7 @@
     <p class="status">On <a href="https://crates.io/crates/nonius-core">crates.io</a> and <a href="https://www.npmjs.com/package/nonius">npm</a>; the .NET packages are coming to NuGet.</p>
     <nav class="links">
       <a href="#why">Why</a>
+      <a href="#works">How it works</a>
       <a href="#how">How it fits</a>
       <a href="#use">Use it</a>
       <a href="#specs">Specifications</a>
@@ -65,6 +67,25 @@
     <figcaption>Four points 250 nanoseconds apart, at the first instant of 2025,
     drawn from a file on the CPU.</figcaption>
   </figure>
+</section>
+
+<section id="works" class="wrap">
+  <h2>How it works</h2>
+  <p>A point travels from your data to the screen in five steps, none of them a
+  translation:</p>
+  <ol class="works">
+    <li><a href="protocol.html#point">The point</a>: a time in nanoseconds, a value and a weight,
+    three 64-bit integers, so nothing is rounded.</li>
+    <li><a href="protocol.html#nsb1">NSB1</a>: the points as columns, each starting on a multiple of
+    64 bytes, read where they lie.</li>
+    <li><a href="protocol.html#pyramid">The pyramid</a>: summaries at every zoom, and a view reads
+    the level that fits its pixels.</li>
+    <li><a href="protocol.html#tiles">Tiles over HTTP</a>: fixed pieces at addresses that never
+    change, cached for a year.</li>
+    <li><a href="protocol.html#live">The live feed</a>: numbered frames, so a lost one is noticed
+    and recovered.</li>
+  </ol>
+  <p><a href="protocol.html">How a point travels</a>, with the bytes of a real tile.</p>
 </section>
 
 <section id="how" class="wrap">

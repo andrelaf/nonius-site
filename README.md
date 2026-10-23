@@ -1,3 +1,5 @@
+![Nonius](img/banner.png)
+
 # Nonius
 
 Dense time series, from server to pixel, exact to the nanosecond at any
