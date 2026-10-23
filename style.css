@@ -75,13 +75,6 @@ figure { margin: 24px 0 0; }
 .hero .shot img { border-color: #30363d; }
 .shot.narrow img { max-width: 640px; width: 100%; }
 figcaption { margin-top: 8px; font-size: 14px; color: var(--muted); text-align: center; }
-.diagram img { margin: 0 auto; }
-/* On a narrow screen the diagram keeps a width its labels can be read
-   at, and scrolls inside its frame rather than the page. */
-@media (max-width: 720px) {
-  .diagram { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; }
-  .diagram img { width: 720px; max-width: none; }
-}
 
 main section { padding: 48px 16px 8px; }
 h2 { font-size: 28px; margin: 0 0 16px; }
@@ -176,3 +169,37 @@ footer { padding-top: 32px; padding-bottom: 48px; color: var(--muted); font-size
 .fields div { display: flex; gap: 12px; }
 .fields dt { width: 2.5em; flex: none; text-align: right; font-family: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace; color: var(--muted); }
 .fields dd { margin: 0; min-width: 0; }
+
+/* How it fits: the same core in three places, and what travels between
+   server and page. Complete at rest; the motion only shows the flow. */
+.fits { display: grid; gap: 16px; margin-top: 20px; }
+.fits-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch; }
+.fits h3 { margin: 0; font-size: 18px; }
+.side { flex: 1 1 240px; min-width: 0; border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+.side ul { margin: 0; padding-left: 18px; font-size: 15px; }
+.core { align-self: flex-start; padding: 3px 10px; border-radius: 999px; border: 1.5px solid var(--accent); color: var(--accent); font-size: 13px; font-weight: 600; }
+.wire { flex: 1.4 1 300px; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 18px; padding: 8px 4px; }
+.lane { display: grid; gap: 6px; }
+.lane p { margin: 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 8px; font-size: 14px; }
+.lane a, .lane strong { font-weight: 600; }
+.lane span { color: var(--muted); }
+.track { position: relative; height: 14px; border-radius: 7px; background: var(--panel); border: 1px solid var(--line); overflow: hidden; }
+.mover { position: absolute; top: 2px; left: 0; animation: travel 3.2s linear infinite; }
+.mover.tile { width: 10px; height: 8px; border-radius: 2px; background: var(--data); }
+.mover.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--data); }
+.mover.frame { width: 12px; height: 8px; border-radius: 1px; border: 2px solid var(--data); }
+.mover.d1 { animation-delay: -0.8s; } .mover.d2 { animation-delay: -1.6s; } .mover.d3 { animation-delay: -2.4s; }
+.mover.fast { animation-duration: 1.6s; }
+.mover.fast.d1 { animation-delay: -0.4s; } .mover.fast.d2 { animation-delay: -0.8s; } .mover.fast.d3 { animation-delay: -1.2s; }
+.mover.slow { animation-duration: 4.8s; }
+@keyframes travel { from { left: 0%; } to { left: calc(100% - 12px); } }
+@media (prefers-reduced-motion: reduce) {
+  .mover { animation: none; }
+  .mover.d1 { left: 25%; } .mover.d2 { left: 50%; } .mover.d3 { left: 75%; }
+}
+.native { border: 1px solid var(--line); border-radius: 10px; padding: 18px; background: var(--panel); display: flex; flex-wrap: wrap; gap: 16px 32px; }
+.native > div { flex: 1 1 220px; display: flex; flex-direction: column; gap: 10px; }
+.native dl { flex: 3 1 480px; min-width: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; font-size: 15px; }
+.native dt { font-weight: 700; }
+.native dd { margin: 0; color: var(--muted); }
+.fits figcaption { text-align: left; margin: 0; }

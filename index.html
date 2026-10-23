@@ -90,11 +90,57 @@
 
 <section id="how" class="wrap">
   <h2>How it fits</h2>
-  <p>Your server cuts a series into tiles and images; the page runs the same core
-  and renderer as WebAssembly, on WebGPU, WebGL2 or a 2D canvas. Natively, Rust
-  programs use the crates, and C and .NET call the same core.</p>
-  <figure class="diagram">
-    <img src="img/architecture.svg" width="960" height="600" alt="Your server cuts a series into tiles and images with nonius-core and nonius-render; tiles travel as NSB1 columns and a live feed as numbered frames; your page runs the same core and renderer compiled to WebAssembly; natively, Rust, C and .NET use the same crates.">
+  <p>The same Rust core runs on your server, in your page and in native programs.
+  Between server and page travel only three things: tiles, a live feed and images.</p>
+  <figure class="fits" aria-label="Your server and your page each run the Nonius core; tiles, a live feed and images travel between them; native programs in Rust, C and .NET link the same core">
+    <div class="fits-row">
+      <div class="side">
+        <h3>Your server</h3>
+        <span class="core">the Nonius core</span>
+        <ul>
+          <li>keeps the series as a pyramid of summaries</li>
+          <li>cuts it into tiles</li>
+          <li>draws images on the CPU</li>
+        </ul>
+      </div>
+      <div class="wire">
+        <div class="lane">
+          <p><a href="protocol.html#tiles">Tiles</a><span>NSB1 columns over HTTP</span></p>
+          <div class="track" aria-hidden="true"><i class="mover tile"></i><i class="mover tile d1"></i><i class="mover tile d2"></i><i class="mover tile d3"></i></div>
+        </div>
+        <div class="lane">
+          <p><a href="protocol.html#live">Live feed</a><span>numbered frames on a WebSocket</span></p>
+          <div class="track" aria-hidden="true"><i class="mover dot fast"></i><i class="mover dot fast d1"></i><i class="mover dot fast d2"></i><i class="mover dot fast d3"></i></div>
+        </div>
+        <div class="lane">
+          <p><strong>Images</strong><span>PNG, for anything that shows one</span></p>
+          <div class="track" aria-hidden="true"><i class="mover frame slow"></i><i class="mover frame slow d2"></i></div>
+        </div>
+      </div>
+      <div class="side">
+        <h3>Your page</h3>
+        <span class="core">the Nonius core, as WebAssembly</span>
+        <ul>
+          <li>fetches the tiles its view needs</li>
+          <li>draws on WebGPU, WebGL2 or a 2D canvas</li>
+          <li>follows the live feed in a worker</li>
+        </ul>
+      </div>
+    </div>
+    <div class="native">
+      <div>
+        <h3>Native programs</h3>
+        <span class="core">the Nonius core, linked</span>
+      </div>
+      <dl>
+        <div><dt>Rust</dt><dd>the crates, drawing with wgpu or on the CPU</dd></div>
+        <div><dt>C</dt><dd>a library and its header, for any language that calls C</dd></div>
+        <div><dt>.NET</dt><dd>a desktop control and a Blazor component</dd></div>
+      </dl>
+    </div>
+    <figcaption>One core on both sides of the wire, so a tile cut on the server is exactly
+    what the page draws, and the server's PNG is the browser's frame.
+    <a href="protocol.html">How a point travels</a>.</figcaption>
   </figure>
 </section>
 
