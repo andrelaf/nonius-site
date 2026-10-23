@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Como um ponto viaja — Nonius</title>
+<meta name="description" content="Como o Nonius envia uma série temporal: três inteiros por ponto, colunas alinhadas a 64 bytes, uma pirâmide de resumos, tiles por HTTP e um feed ao vivo numerado, mostrados com os bytes de um tile de verdade.">
+<link rel="alternate" hreflang="en" href="https://andrelaf.github.io/nonius-site/protocol.html">
+<link rel="alternate" hreflang="pt-BR" href="https://andrelaf.github.io/nonius-site/pt/protocol.html">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body class="protocol">
+
+<header class="hero">
+  <div class="wrap">
+    <p class="name"><a href="index.html"><img src="../img/lockup.svg" width="128" height="36" alt="Nonius, início"></a></p>
+    <h1>Como um ponto viaja</h1>
+    <p class="lede">O Nonius envia uma série como colunas de inteiros que o navegador lê onde
+    elas chegam: sem JSON, sem decodificador. Cinco passos, de um ponto até um feed ao vivo,
+    mostrados com os bytes de um tile de verdade.</p>
+    <nav class="links" aria-label="Os cinco passos">
+      <a href="#point">1 O ponto</a>
+      <a href="#nsb1">2 NSB1</a>
+      <a href="#pyramid">3 A pirâmide</a>
+      <a href="#tiles">4 Tiles por HTTP</a>
+      <a href="#live">5 O feed ao vivo</a>
+      <a href="../protocol.html" hreflang="en" lang="en">English</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section id="point" class="wrap">
+  <p class="step">Passo 1</p>
+  <h2>O ponto: três inteiros</h2>
+  <p>Todo ponto é um tempo, um valor e um peso, cada um um inteiro de 64 bits. O valor é
+  escalado: com expoente 2, <code>10800000000</code> quer dizer 108.000.000,00, exatamente.</p>
+  <div class="cards">
+    <div class="card">
+      <p class="field"><span>t</span><code>i64</code></p>
+      <p class="value">1788220800000000000</p>
+      <p class="note">nanossegundos desde 1970: 2026-09-01 00:00:00 UTC</p>
+    </div>
+    <div class="card">
+      <p class="field"><span>v</span><code>i64</code></p>
+      <p class="value">10800000000</p>
+      <p class="note">× 10<sup>−2</sup>, o expoente da série: 108.000.000,00</p>
+    </div>
+    <div class="card">
+      <p class="field"><span>w</span><code>u64</code></p>
+      <p class="value">3</p>
+      <p class="note">um peso: um volume, uma contagem de amostras; 1 quando não há</p>
+    </div>
+  </div>
+  <div class="aside">
+    <h3>Por que não floats</h3>
+    <p>Perto de 2026, o menor passo entre dois tempos que um número consegue guardar:</p>
+    <div class="steps3">
+      <p><span>float de 32 bits</span><strong>137 s</strong></p>
+      <p><span>float de 64 bits</span><strong>256 ns</strong></p>
+      <p class="ours"><span>inteiro de 64 bits, Nonius</span><strong>1 ns</strong></p>
+    </div>
+    <p class="note">Os floats só aparecem no último momento, depois de subtraído o início da
+    janela visível, quando os números que sobram são pequenos.</p>
+  </div>
+</section>
+
+<section id="nsb1" class="wrap">
+  <p class="step">Passo 2</p>
+  <h2>NSB1: colunas que começam num múltiplo de 64</h2>
+  <p>Os pontos viajam em colunas: todos os tempos juntos, depois todos os valores, depois os
+  pesos. Um contêiner é um cabeçalho de 64 bytes, uma entrada de 48 bytes por coluna dizendo
+  onde ela começa, as próprias colunas e um bloco de JSON dizendo o que é o tile. Aqui está um
+  tile bruto inteiro, o tipo que carrega os próprios pontos (passo 4), com dois pontos e
+  nenhum vizinho: todos os seus 477 bytes.</p>
+  <figure>
+    <div class="bytes" role="img" aria-label="Os 477 bytes do tile como uma barra: cabeçalho 64, diretório 144, preenchimento 48, depois as colunas t, v e w de 16 bytes cada, cada uma completada até 64, depois 29 bytes de metadados">
+      <span class="header-b" style="flex: 64"></span>
+      <span class="directory-b" style="flex: 144"></span>
+      <span class="pad-b" style="flex: 48"></span>
+      <span class="column-b" style="flex: 16"></span>
+      <span class="column-pad-b" style="flex: 48"></span>
+      <span class="column-b" style="flex: 16"></span>
+      <span class="column-pad-b" style="flex: 48"></span>
+      <span class="column-b" style="flex: 16"></span>
+      <span class="column-pad-b" style="flex: 48"></span>
+      <span class="meta-b" style="flex: 29"></span>
+    </div>
+    <ul class="legend">
+      <li><span class="swatch header-b"></span>cabeçalho, 0–63</li>
+      <li><span class="swatch directory-b"></span>diretório de colunas, 64–207</li>
+      <li><span class="swatch pad-b"></span>preenchimento com zeros</li>
+      <li><span class="swatch column-b"></span>t em 256, v em 320, w em 384</li>
+      <li><span class="swatch meta-b"></span>metadados, 448–476</li>
+    </ul>
+  </figure>
+  <div class="cards">
+    <div class="card">
+      <h3>O cabeçalho, 64 bytes</h3>
+      <dl class="fields">
+        <div><dt>0</dt><dd>número mágico, ASCII <code>NONIUSB1</code></dd></div>
+        <div><dt>8</dt><dd>versão, 1</dd></div>
+        <div><dt>10</dt><dd>flags: tempos em ordem, tempos únicos</dd></div>
+        <div><dt>12</dt><dd>número de colunas</dd></div>
+        <div><dt>16</dt><dd>número de linhas</dd></div>
+        <div><dt>24</dt><dd>onde começam as colunas</dd></div>
+        <div><dt>32</dt><dd>onde começam os metadados</dd></div>
+        <div><dt>40</dt><dd>o tamanho dos metadados em bytes</dd></div>
+        <div><dt>48</dt><dd>hash FNV-1a-64 dos bytes das colunas, preenchimento incluído</dd></div>
+      </dl>
+      <p class="note">Posições em bytes. Todo inteiro do contêiner é little-endian; os campos
+      entre estes são zero.</p>
+    </div>
+    <div class="card">
+      <h3>A entrada de uma coluna, 48 bytes</h3>
+      <dl class="fields">
+        <div><dt>0</dt><dd>nome, 16 bytes de ASCII completados com zeros</dd></div>
+        <div><dt>16</dt><dd>tipo: 1 inteiro de 64 bits com sinal, 2 sem sinal, 3 float</dd></div>
+        <div><dt>17</dt><dd>expoente: 9 para t, o da série para os valores, 0 para os pesos</dd></div>
+        <div><dt>24</dt><dd>onde começam seus bytes</dd></div>
+        <div><dt>32</dt><dd>seu tamanho: 8 bytes por linha, sem preenchimento</dd></div>
+      </dl>
+      <p class="note">Assim o expoente de um valor viaja com o tile: neste, a entrada de v diz
+      2, e 10800000000 é 108.000.000,00.</p>
+    </div>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h3>A coluna t, no byte 256</h3>
+<pre data-quote="crates/nonius-bench/tests/protocol_page.rs"><code>0100: <span class="hl-a">00 00 f7 db 57 09 d1 18</span> <span class="hl-b">dc 05 f7 db 57 09 d1 18</span></code></pre>
+      <p>Oito bytes por linha, o menos significativo primeiro: <code class="hl-a">0x18d10957dbf70000</code>
+      é 1788220800000000000, e a linha seguinte é 1.500 a mais, <span class="hl-b">1,5 µs depois</span>.</p>
+    </div>
+    <div class="card">
+      <h3>Lido no lugar</h3>
+<pre data-quote="crates/nonius-bench/tests/protocol_page.rs"><code>const t = new BigInt64Array(bytes.buffer, 256, 2);
+// 1788220800000000000n, 1788220800000001500n</code></pre>
+      <p>Toda coluna começa num múltiplo de 64, então quem lê enxerga a coluna como um array
+      onde ela está, sem interpretá-la: o layout dos buffers do Arrow. O pacote do navegador
+      copia um tile uma vez, para a memória do gráfico, e o lê ali. Um hash das colunas deixa
+      quem lê recusar um tile danificado.</p>
+    </div>
+  </div>
+</section>
+
+<section id="pyramid" class="wrap">
+  <p class="step">Passo 3</p>
+  <h2>A pirâmide: resumos em cada zoom</h2>
+  <p>Um dia pode ter milhões de pontos, e uma tela tem cerca de duas mil colunas de pixels.
+  Por isso o servidor guarda a série resumida em níveis, os buckets de cada nível quatro
+  vezes mais largos que os do nível de baixo, todos alinhados a 1970.</p>
+  <div class="levels" role="img" aria-label="Quatro níveis de buckets, de 1, 4, 16 e 64 milissegundos, os buckets de cada nível quatro vezes mais largos que os do nível de baixo">
+    <div class="level"><span>nível 3 · 64 ms</span><div class="buckets"><i></i></div></div>
+    <div class="level"><span>nível 2 · 16 ms</span><div class="buckets l2"><i></i><i></i><i></i><i></i></div></div>
+    <div class="level"><span>nível 1 · 4 ms</span><div class="buckets l1"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    <div class="level"><span>nível 0 · 1 ms</span><div class="buckets l0"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h3>Um bucket são oito números</h3>
+      <ul class="chips">
+        <li>first_t</li><li>first_v</li><li>last_t</li><li>last_v</li><li>min</li><li>max</li><li>count</li><li>weight</li>
+      </ul>
+      <p>O primeiro e o último ponto, o menor e o maior valor, quantos são e o seu peso.
+      Desenhada como um traço do menor ao maior, cada coluna ligada à seguinte, a linha é a
+      mesma, pixel a pixel, que a linha desenhada com todos os pontos.</p>
+    </div>
+    <div class="card">
+      <h3>A visualização escolhe o nível</h3>
+      <p>Com resumos a partir de 1 ms, um dia em 1.920 pixels pede colunas de 45 s. O nível
+      mais grosso que ainda dá 16 buckets ou mais por coluna é o nível 5, 1,024 s: 43 dos seus
+      buckets formam uma coluna, 1.964 colunas para o dia. Aproxime o bastante e nenhum nível
+      é fino o suficiente: a visualização lê os pontos brutos.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tiles" class="wrap">
+  <p class="step">Passo 4</p>
+  <h2>Tiles por HTTP, como os de um mapa</h2>
+  <p>O cliente pede só os tiles de que a sua visualização precisa. Um tile é uma sequência
+  fixa de colunas de um nível, num endereço cuja resposta nunca muda, então o navegador e
+  todo cache no caminho o guardam por um ano.</p>
+  <div class="address">
+    <p class="url">GET /v1/series/<span class="hl-a">day</span>/columns/<span class="hl-b">0</span>/<span class="hl-b">16</span>/<span class="hl-b">27940950000</span></p>
+    <dl>
+      <div><dt class="hl-a">day</dt><dd>a série</dd></div>
+      <div><dt class="hl-b">0</dt><dd>o nível</dd></div>
+      <div><dt class="hl-b">16</dt><dd>buckets juntados numa coluna</dd></div>
+      <div><dt class="hl-b">27940950000</dt><dd>qual sequência de colunas: aqui, quatro colunas por tile</dd></div>
+    </dl>
+  </div>
+  <p>Cada tile cobre um trecho fixo: um tile de colunas, uma sequência de colunas; um tile
+  bruto, um trecho de tempo: o tile bruto <code>i</code> cobre <code>[i · R, (i + 1) · R)</code>
+  nanossegundos desde 1970. Os metadados da série, em <code>/v1/series/{id}</code>, dão essas
+  larguras (<code>R</code> é o seu <code>raw_tile_ns</code>). Um tile também traz o vizinho
+  mais próximo de cada lado, uma coluna ou um ponto logo fora do seu trecho, quando existe,
+  para que a linha possa ser desenhada entrando e saindo da visualização. Eles contam entre
+  as suas linhas, e quem lê os distingue pelo tempo.</p>
+  <div class="cards">
+    <div class="card">
+      <h3>O que volta</h3>
+<pre data-quote="crates/nonius-bench/tests/protocol_page.rs"><code>200 OK
+Content-Type: application/vnd.nonius.nsb1
+ETag: "e490c413ec950166"
+Cache-Control: public, max-age=31536000, immutable</code></pre>
+      <p>Um contêiner NSB1 de oito colunas, uma por campo do bucket, e três linhas: as duas
+      colunas do tile que têm pontos e a seguinte, que a linha precisa para sair da
+      visualização.</p>
+    </div>
+    <div class="card">
+      <h3>A última linha diz o que ele é</h3>
+<pre data-quote="crates/nonius-bench/tests/protocol_page.rs"><code>{"tile":"columns","level":0,"k":16,"i":"27940950000"}</code></pre>
+      <p>O cliente confere com o endereço que pediu. O ETag é o hash do cabeçalho, então pedir
+      de novo um tile que não mudou custa um <code>304</code>. Bem de perto, os tiles brutos
+      em <code>/raw/{i}</code> trazem os próprios pontos: três colunas, t, v e w, como as do
+      passo 2.</p>
+    </div>
+  </div>
+</section>
+
+<section id="live" class="wrap">
+  <p class="step">Passo 5</p>
+  <h2>O feed ao vivo: quadros numerados</h2>
+  <p>Pontos novos chegam num WebSocket em quadros, cada um numerado e com as mesmas três
+  colunas, 24 bytes por ponto. Redes perdem quadros; os números mostram onde.</p>
+  <ol class="feed" aria-label="Uma conexão: o início aponta o quadro 0, o quadro 0 é aplicado, o quadro 1 se perde, o quadro 2 revela a lacuna e o cliente reconecta a partir do quadro 0, depois os quadros 1 e 2 são aplicados">
+    <li><code>NLS1</code><strong>início: a partir do 0</strong></li>
+    <li class="applied"><code>NLF1 · 0</code><strong>aplicado</strong></li>
+    <li class="lost"><code>NLF1 · 1</code><strong>perdido</strong></li>
+    <li class="gap"><code>NLF1 · 2</code><strong>uma lacuna: reconectar a partir do 0</strong></li>
+    <li class="applied"><code>NLF1 · 1, 2</code><strong>aplicados, em ordem</strong></li>
+  </ol>
+  <div class="cards">
+    <div class="card">
+      <h3>Um quadro</h3>
+      <div class="frame" role="img" aria-label="Um quadro: 4 bytes de número mágico, 4 de número de linhas, 8 de número de sequência, depois 24 bytes por linha">
+        <span style="flex: 4">NLF1</span><span style="flex: 4">linhas</span><span style="flex: 8">sequência</span><span style="flex: 24">t, v, w × linhas</span>
+      </div>
+      <p>O número mágico, o número de linhas, o número do quadro, e então as colunas.</p>
+    </div>
+    <div class="card">
+      <h3>Nada é adivinhado</h3>
+      <p>Um quadro fora de vez nunca é aplicado. O cliente reconecta a partir do último quadro
+      que aplicou, e tudo antes dele continua certo. Quando o feed está parado, heartbeats
+      dizem o próximo número, então até a perda do último quadro é notada.</p>
+    </div>
+  </div>
+</section>
+
+<section id="specs" class="wrap">
+  <h2>O todo</h2>
+  <p>As especificações são escritas para que se possa construir um cliente só a partir
+  delas, e um foi construído: suas colunas batem com as do núcleo. Estão em inglês.</p>
+  <ul>
+    <li><a href="https://github.com/andrelaf/nonius-site/blob/main/specs/protocol.md">O protocolo</a> (em inglês): o contêiner, a pirâmide, tiles, metadados, HTTP, seleção de pontos e imagens.</li>
+    <li><a href="https://github.com/andrelaf/nonius-site/blob/main/specs/pyramid-file.md">O arquivo de pirâmide</a> (em inglês): uma série e seus resumos, lidos no lugar.</li>
+    <li><a href="https://crates.io/crates/nonius-live">O formato do feed ao vivo</a>, no <code>nonius-live</code> (em inglês).</li>
+  </ul>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p><a href="index.html">Nonius</a>. MIT ou Apache-2.0, à sua escolha.</p>
+</footer>
+
+</body>
+</html>

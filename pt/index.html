@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nonius — séries temporais densas, exatas até o nanossegundo</title>
+<meta name="description" content="O Nonius desenha séries temporais de milhões de pontos no navegador, em programas nativos e em servidores, exatas até o nanossegundo em qualquer zoom: um único núcleo em Rust do servidor ao pixel, e um formato colunar próprio.">
+<link rel="alternate" hreflang="en" href="https://andrelaf.github.io/nonius-site/">
+<link rel="alternate" hreflang="pt-BR" href="https://andrelaf.github.io/nonius-site/pt/">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="name"><img src="../img/lockup.svg" width="128" height="36" alt="Nonius"></p>
+    <h1>Séries temporais densas, exatas até o nanossegundo em qualquer zoom.</h1>
+    <p class="lede">Milhões de pontos num navegador, num programa de desktop ou nas
+    imagens de um servidor, cada um no seu lugar por mais que você aproxime. Um
+    único núcleo em Rust resume a série no servidor e a desenha na tela.</p>
+    <p class="status">No <a href="https://crates.io/crates/nonius-core">crates.io</a> e no <a href="https://www.npmjs.com/package/nonius">npm</a>; os pacotes .NET chegam em breve ao NuGet.</p>
+    <nav class="links">
+      <a href="#why">Por quê</a>
+      <a href="#works">Como funciona</a>
+      <a href="#how">Como se encaixa</a>
+      <a href="#use">Como usar</a>
+      <a href="#specs">Especificações</a>
+      <a href="../index.html" hreflang="en" lang="en">English</a>
+    </nav>
+  </div>
+  <figure class="wrap shot">
+    <img src="../img/deep-zoom.png" width="800" height="400" alt="Um gráfico com um dia de pontos se aproxima quarenta bilhões de vezes, até dois microssegundos; os rótulos de tempo vão das horas do dia aos nanossegundos, e os pontos de uma rajada, a poucas centenas de nanossegundos uns dos outros, aparecem separados">
+    <figcaption>Um dia de pontos, um por segundo, ampliado até dois microssegundos de
+    uma rajada dentro dele. Desenhado pelo pacote do navegador, quadro a quadro.</figcaption>
+  </figure>
+</header>
+
+<main>
+
+<section id="why" class="wrap">
+  <h2>Por que o Nonius</h2>
+  <div class="reasons">
+    <article>
+      <h3>Exato no zoom profundo</h3>
+      <p>Um gráfico que guarda o tempo como float de 32 bits, como os gráficos em
+      GPU costumam fazer, não distingue dois instantes de 2025 separados por menos
+      de uns dois minutos. O Nonius guarda o tempo em nanossegundos de 64 bits até
+      descontar o início da janela visível; só os pequenos deslocamentos que sobram
+      viram floats.</p>
+    </article>
+    <article>
+      <h3>Um núcleo, do servidor ao pixel</h3>
+      <p>Os tiles e as imagens do servidor e o quadro do navegador saem do mesmo
+      código Rust, compilado para WebAssembly na página. Uma página que monta a
+      série a partir de tiles desenha o mesmo que uma página com a série inteira, e
+      o PNG do servidor é o quadro do navegador.</p>
+    </article>
+    <article>
+      <h3>Formato próprio, lido no lugar</h3>
+      <p>Uma série viaja como <code>NSB1</code>: colunas little-endian alinhadas a
+      64 bytes, o layout dos buffers do Arrow. O navegador copia os bytes uma vez
+      para a memória do gráfico e os lê ali mesmo: sem JSON, sem decodificador. Um
+      feed ao vivo são quadros numerados num WebSocket, e um quadro perdido é
+      recuperado.</p>
+    </article>
+  </div>
+  <figure class="shot narrow">
+    <img src="../img/quick-start.png" width="640" height="320" alt="Uma linha por quatro pontos a 250 nanossegundos uns dos outros, o eixo do tempo rotulado em nanossegundos depois da meia-noite">
+    <figcaption>Quatro pontos a 250 nanossegundos uns dos outros, no primeiro
+    instante de 2025, desenhados a partir de um arquivo, na CPU.</figcaption>
+  </figure>
+</section>
+
+<section id="works" class="wrap">
+  <h2>Como funciona</h2>
+  <p>Um ponto vai dos seus dados até a tela em cinco passos, e nenhum deles é
+  uma conversão:</p>
+  <ol class="works">
+    <li><a href="protocol.html#point">O ponto</a>: um tempo em nanossegundos, um valor e um peso,
+    três inteiros de 64 bits, para que nada seja arredondado.</li>
+    <li><a href="protocol.html#nsb1">NSB1</a>: os pontos em colunas, cada uma começando num múltiplo
+    de 64 bytes, lidas onde estão.</li>
+    <li><a href="protocol.html#pyramid">A pirâmide</a>: resumos em cada nível de zoom, e uma
+    visualização lê o nível que cabe nos seus pixels.</li>
+    <li><a href="protocol.html#tiles">Tiles por HTTP</a>: pedaços fixos em endereços que nunca
+    mudam, guardados em cache por um ano.</li>
+    <li><a href="protocol.html#live">O feed ao vivo</a>: quadros numerados, para que um quadro
+    perdido seja notado e recuperado.</li>
+  </ol>
+  <p><a href="protocol.html">Como um ponto viaja</a>, com os bytes de um tile de verdade.</p>
+</section>
+
+<section id="how" class="wrap">
+  <h2>Como se encaixa</h2>
+  <p>O mesmo núcleo em Rust roda no seu servidor, na sua página e em programas
+  nativos. Entre o servidor e a página passam só três coisas: tiles, um feed ao
+  vivo e imagens.</p>
+  <figure class="fits" aria-label="Seu servidor e sua página rodam, cada um, o núcleo do Nonius; tiles, um feed ao vivo e imagens passam entre eles; programas nativos em Rust, C e .NET usam o mesmo núcleo">
+    <div class="fits-row">
+      <div class="side">
+        <h3>Seu servidor</h3>
+        <span class="core">o núcleo do Nonius</span>
+        <ul>
+          <li>guarda a série como uma pirâmide de resumos</li>
+          <li>a corta em tiles</li>
+          <li>desenha imagens na CPU</li>
+        </ul>
+      </div>
+      <div class="wire">
+        <div class="lane">
+          <p><a href="protocol.html#tiles">Tiles</a><span>colunas NSB1 por HTTP</span></p>
+          <div class="track" aria-hidden="true"><i class="mover tile"></i><i class="mover tile d1"></i><i class="mover tile d2"></i><i class="mover tile d3"></i></div>
+        </div>
+        <div class="lane">
+          <p><a href="protocol.html#live">Feed ao vivo</a><span>quadros numerados num WebSocket</span></p>
+          <div class="track" aria-hidden="true"><i class="mover dot fast"></i><i class="mover dot fast d1"></i><i class="mover dot fast d2"></i><i class="mover dot fast d3"></i></div>
+        </div>
+        <div class="lane">
+          <p><strong>Imagens</strong><span>PNG, para o que quer que mostre uma</span></p>
+          <div class="track" aria-hidden="true"><i class="mover frame slow"></i><i class="mover frame slow d2"></i></div>
+        </div>
+      </div>
+      <div class="side">
+        <h3>Sua página</h3>
+        <span class="core">o núcleo do Nonius, em WebAssembly</span>
+        <ul>
+          <li>busca os tiles de que a visualização precisa</li>
+          <li>desenha com WebGPU, WebGL2 ou um canvas 2D</li>
+          <li>acompanha o feed ao vivo num worker</li>
+        </ul>
+      </div>
+    </div>
+    <div class="native">
+      <div>
+        <h3>Programas nativos</h3>
+        <span class="core">o núcleo do Nonius, linkado</span>
+      </div>
+      <dl>
+        <div><dt>Rust</dt><dd>os crates, desenhando com wgpu ou na CPU</dd></div>
+        <div><dt>C</dt><dd>uma biblioteca e seu header, para qualquer linguagem que chame C</dd></div>
+        <div><dt>.NET</dt><dd>um controle de desktop e um componente Blazor</dd></div>
+      </dl>
+    </div>
+    <figcaption>Um só núcleo dos dois lados da rede: o tile cortado no servidor é
+    exatamente o que a página desenha, e o PNG do servidor é o quadro do navegador.
+    <a href="protocol.html">Como um ponto viaja</a>.</figcaption>
+  </figure>
+</section>
+
+<section id="use" class="wrap">
+  <h2>Como usar</h2>
+  <p>Um ponto é um tempo em nanossegundos, um valor e um peso. O valor é um
+  inteiro com um número fixo de casas decimais, então <code>101.25</code>
+  continua <code>101.25</code> dos seus dados até o quadro.</p>
+
+  <h3>Rust: de um arquivo de série a uma imagem, sem GPU</h3>
+<pre data-quote="crates/check-registry.sh"><code>cargo add nonius-format nonius-core
+cargo add nonius-render --no-default-features</code></pre>
+  <p>Leia o arquivo no lugar, guarde-o como uma pirâmide de resumos e desenhe
+  qualquer visualização dele; aqui, a série inteira:</p>
+<pre data-quote="crates/nonius-render/README.md"><code>use nonius_core::{Loaded, Pyramid, Series, Width};
+use nonius_format::{AlignedBytes, Container};
+use nonius_render::{Still, Theme, still_png};
+
+fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
+    // Read once into memory aligned for the columns, then read in place.
+    let bytes = AlignedBytes::from_slice(&amp;std::fs::read("day.nsb")?);
+    let container = Container::parse_checked(bytes.as_slice())?;
+    let series = Series::from_container(&amp;container)?;
+
+    // Summaries from one second up, nine levels (see nonius-core's
+    // "Choosing the pyramid").
+    let mut pyramid = Pyramid::new(Width::new(1_000_000_000)?, 9)?;
+    pyramid.extend_sorted(series.iter())?;
+    let loaded = Loaded::new(&amp;pyramid, (series.t(), series.v(), series.w()));
+
+    let (Some(&amp;first), Some(&amp;last)) = (series.t().first(), series.t().last()) else {
+        return Err("the file holds no points".into());
+    };
+    // The image's size is in device pixels; `ratio` scales labels and lines.
+    let png = still_png(&amp;loaded, &amp;Still {
+        start: first,
+        end: last + 1,
+        width: 2400,
+        height: 800,
+        theme: Theme::light(),
+        ratio: 2.0,
+        scale: series.scale(),
+    })?;
+    std::fs::write("day.png", png)?;
+    Ok(())
+}</code></pre>
+
+  <h3>O navegador: um gráfico que se arrasta e se amplia</h3>
+<pre data-quote="crates/check-registry.sh"><code>npm install nonius</code></pre>
+<pre data-quote="examples/web/vanilla/main.js"><code>const chart = await createChart(canvas);
+
+// Your points: times in nanoseconds since 1970 as BigInts, values as
+// integers with a fixed number of decimal places (2 here: 10_000 is
+// 100.00), and a weight each.
+const { t, v, w } = randomWalk();
+chart.setScale(2);
+chart.push(t, v, w);
+
+// Open on everything, the value axis fitted to it.
+const [start, end] = [t[0], t[t.length - 1] + 1n];
+const [lo, hi] = chart.autoscale(start, end, 0, 8);
+chart.setView(start, end, lo, hi);</code></pre>
+  <p>WebGPU quando o navegador tem, WebGL2 quando não tem, e um canvas 2D quando
+  nenhum dos dois oferece um dispositivo. O pacote também acompanha os tiles de
+  um servidor e recebe um feed ao vivo num worker; React e Vue o usam como
+  qualquer outro módulo.</p>
+
+  <h3>.NET: o mesmo núcleo, em C#</h3>
+<pre data-not-run="os pacotes ainda não estão no NuGet: eles são publicados pelo GitHub Actions"><code>dotnet add package Nonius</code></pre>
+<pre data-quote="dotnet/tests/Nonius.Tests/QuickStart.cs"><code>using var series = Series.FromNsb(File.ReadAllBytes(nsb));
+if (!series.TryGetRange(out var first, out var last))
+{
+    throw new InvalidDataException($"{nsb} holds no points");
+}
+// Light, for a box of 1200 × 400 CSS pixels at a pixel ratio of 2:
+// the size is in device pixels, the ratio in thousandths.
+byte[] image = series.StillPng(new Still(first, last + 1, 2400, 800, Theme.Light, RatioPermille: 2000));
+File.WriteAllBytes(png, image);</code></pre>
+  <p><code>Nonius.Avalonia</code> é um controle de gráfico para desktop, e
+  <code>Nonius.Blazor</code> um componente que traz o pacote do navegador.</p>
+</section>
+
+<section id="packages" class="wrap">
+  <h2>Os pacotes</h2>
+  <table>
+    <thead><tr><th>Pacote</th><th>O que é</th></tr></thead>
+    <tbody>
+      <tr><td><a href="https://crates.io/crates/nonius-core"><code>nonius-core</code></a></td><td>Pontos, séries, a pirâmide de resumos, tiles, escala automática, eixos.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-format"><code>nonius-format</code></a></td><td><code>NSB1</code>, o contêiner colunar, escrito e lido no lugar.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-render"><code>nonius-render</code></a></td><td>O renderizador: na GPU com wgpu, ou na CPU sem dispositivo.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-text"><code>nonius-text</code></a></td><td>A fonte dos rótulos dos eixos, Inter, rasterizada num atlas.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-server"><code>nonius-server</code></a></td><td>O servidor de referência: uma série em tiles e imagens por HTTP.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-live"><code>nonius-live</code></a></td><td>O cliente de um feed ao vivo: quadros, lacunas, recuperação, reconexão.</td></tr>
+      <tr><td><a href="https://crates.io/crates/nonius-capi"><code>nonius-capi</code></a></td><td>A interface em C, com seu header.</td></tr>
+      <tr><td><a href="https://www.npmjs.com/package/nonius"><code>nonius</code></a> (npm)</td><td>O pacote do navegador.</td></tr>
+      <tr><td><code>Nonius</code>, <code>Nonius.Avalonia</code>, <code>Nonius.Blazor</code> (NuGet)</td><td>.NET, em breve no NuGet.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="specs" class="wrap">
+  <h2>Especificações</h2>
+  <p>O protocolo de rede foi escrito para ser implementado sem ler o código do
+  Nonius: um cliente foi escrito só a partir dele, e suas colunas batem com as do
+  núcleo. As especificações estão em inglês.</p>
+  <ul>
+    <li><a href="https://github.com/andrelaf/nonius-site/blob/main/specs/protocol.md">O protocolo</a> (em inglês): um histórico em tiles por HTTP, e suas imagens.</li>
+    <li><a href="https://github.com/andrelaf/nonius-site/blob/main/specs/pyramid-file.md">O arquivo de pirâmide</a> (em inglês): uma série e seus resumos, lidos no lugar.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p>MIT ou Apache-2.0, à sua escolha. Os rótulos dos eixos são desenhados com a
+  Inter, sob a SIL Open Font License. Em desenvolvimento.</p>
+</footer>
+
+</body>
+</html>
