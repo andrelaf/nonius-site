@@ -153,6 +153,13 @@
   of a fixed number of decimal places, so <code>101.25</code> stays
   <code>101.25</code> from your data to the frame.</p>
 
+  <h3>Your own data: a CSV, with no code</h3>
+<pre data-quote="crates/check-examples.sh"><code>nonius-server csv prices.csv prices.nsb</code></pre>
+  <p>It comes with <code>cargo install nonius-server</code>. It finds the decimal places,
+  reads ISO 8601 times and a spreadsheet's semicolons and decimal commas, and stops at the
+  first line it cannot read, saying which. <code>nonius-server prices.nsb</code> then
+  serves the file.</p>
+
   <h3>Rust: a series file to a picture, with no GPU</h3>
 <pre data-quote="crates/check-registry.sh"><code>cargo add nonius-format nonius-core
 cargo add nonius-render --no-default-features</code></pre>

@@ -155,6 +155,13 @@
   inteiro com um número fixo de casas decimais, então <code>101.25</code>
   continua <code>101.25</code> dos seus dados até o quadro.</p>
 
+  <h3>Seus dados: um CSV, sem código</h3>
+<pre data-quote="crates/check-examples.sh"><code>nonius-server csv prices.csv prices.nsb</code></pre>
+  <p>Vem com o <code>cargo install nonius-server</code>. Ele descobre as casas decimais,
+  lê tempos em ISO 8601 e o ponto e vírgula e a vírgula decimal de uma planilha, e para na
+  primeira linha que não consegue ler, dizendo qual. Depois, <code>nonius-server
+  prices.nsb</code> serve o arquivo.</p>
+
   <h3>Rust: de um arquivo de série a uma imagem, sem GPU</h3>
 <pre data-quote="crates/check-registry.sh"><code>cargo add nonius-format nonius-core
 cargo add nonius-render --no-default-features</code></pre>
