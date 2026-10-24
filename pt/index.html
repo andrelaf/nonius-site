@@ -195,6 +195,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
         theme: Theme::light(),
         ratio: 2.0,
         scale: series.scale(),
+        gap: None,
     })?;
     std::fs::write("day.png", png)?;
     Ok(())
@@ -219,6 +220,10 @@ chart.setView(start, end, lo, hi);</code></pre>
   nenhum dos dois oferece um dispositivo. O pacote também acompanha os tiles de
   um servidor e recebe um feed ao vivo num worker; React e Vue o usam como
   qualquer outro módulo.</p>
+  <p>Um sensor que envia dados em rajadas aparece com uma reta de uma rajada à
+  seguinte, a menos que você diga quanto tempo de pausa é uma lacuna:
+  <code>chart.setSeriesGap(id, ns)</code> quebra a linha onde um ponto chega mais de
+  <code>ns</code> nanossegundos depois do anterior, nos mesmos lugares em qualquer zoom.</p>
 
   <h3>.NET: o mesmo núcleo, em C#</h3>
 <pre data-not-run="os pacotes ainda não estão no NuGet: eles são publicados pelo GitHub Actions"><code>dotnet add package Nonius</code></pre>

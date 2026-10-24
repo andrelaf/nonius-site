@@ -193,6 +193,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
         theme: Theme::light(),
         ratio: 2.0,
         scale: series.scale(),
+        gap: None,
     })?;
     std::fs::write("day.png", png)?;
     Ok(())
@@ -216,6 +217,10 @@ chart.setView(start, end, lo, hi);</code></pre>
   <p>WebGPU where the browser has it, WebGL2 otherwise, and a 2D canvas when
   neither gives a device. The package also follows a server's tiles and streams
   a live feed from a worker; React and Vue use it as any other module.</p>
+  <p>A sensor that reports in bursts draws a straight line from one burst to the
+  next unless you say how long a pause is a gap: <code>chart.setSeriesGap(id, ns)</code>
+  breaks the line wherever a point comes more than <code>ns</code> nanoseconds after the
+  one before, in the same places at every zoom.</p>
 
   <h3>.NET: the same core, from C#</h3>
 <pre data-not-run="the packages are not on NuGet yet: they publish from GitHub Actions"><code>dotnet add package Nonius</code></pre>
