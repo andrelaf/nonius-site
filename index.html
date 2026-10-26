@@ -159,6 +159,10 @@
   reads ISO 8601 times and a spreadsheet's semicolons and decimal commas, and stops at the
   first line it cannot read, saying which. <code>nonius-server prices.nsb</code> then
   serves the file.</p>
+  <p>From a program, the same file comes from each package, byte for byte: Rust's
+  <code>write_series</code>, .NET's <code>Nsb.Encode</code>, C's
+  <code>nonius_nsb_write</code>, and <code>encodeNsb</code> in JavaScript, in the
+  browser or in Node.</p>
 
   <h3>Rust: a series file to a picture, with no GPU</h3>
 <pre data-quote="crates/check-registry.sh"><code>cargo add nonius-format nonius-core

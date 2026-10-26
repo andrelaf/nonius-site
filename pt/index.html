@@ -161,6 +161,10 @@
   lê tempos em ISO 8601 e o ponto e vírgula e a vírgula decimal de uma planilha, e para na
   primeira linha que não consegue ler, dizendo qual. Depois, <code>nonius-server
   prices.nsb</code> serve o arquivo.</p>
+  <p>De um programa, o mesmo arquivo sai de cada pacote, byte a byte: o
+  <code>write_series</code> do Rust, o <code>Nsb.Encode</code> do .NET, o
+  <code>nonius_nsb_write</code> do C e o <code>encodeNsb</code> no JavaScript, no
+  navegador ou no Node.</p>
 
   <h3>Rust: de um arquivo de série a uma imagem, sem GPU</h3>
 <pre data-quote="crates/check-registry.sh"><code>cargo add nonius-format nonius-core
