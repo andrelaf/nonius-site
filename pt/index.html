@@ -205,6 +205,11 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     std::fs::write("day.png", png)?;
     Ok(())
 }</code></pre>
+  <p>Uma imagem diz onde está o gráfico e o que ele abrange, então um clique nela escolhe o
+  ponto exato e uma marca desenhada por cima cai onde a linha passa: o <code>/png</code> do
+  servidor responde <code>Nonius-Plot</code> e <code>Nonius-Range</code>, e o
+  <code>still_placement</code>, o <code>nonius_still_placement</code> do C e o
+  <code>Series.StillPlacement</code> do .NET dão os mesmos números.</p>
 
   <h3>O navegador: um gráfico que se arrasta e se amplia</h3>
 <pre data-quote="crates/check-registry.sh"><code>npm install nonius</code></pre>

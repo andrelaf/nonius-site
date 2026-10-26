@@ -460,13 +460,18 @@ force. The reference server answers with the same code that draws.
 A server may draw a series as an image — for a report, a thumbnail, a
 message — with no browser:
 
-`GET /v1/series/{id}/png?from=F&to=T&width=W&height=H[&theme=dark|light][&ratio=R]`
+`GET /v1/series/{id}/png?from=F&to=T&width=W&height=H[&theme=dark|light][&ratio=R][&gap=G][&tz=Z]`
 
 - `[from, to)` — the time shown, nanoseconds, `from` before `to`.
 - `width`, `height` — the image, pixels, each 16 to 4096.
 - `theme` — `dark` (the default) or `light`.
 - `ratio` — device pixels a CSS pixel, above 0 and at most 8 (1 by
   default): labels and lines are drawn that many times larger.
+- `gap` — nanoseconds, above 0: the line breaks wherever a point comes
+  more than that after the one before. Joined by default.
+- `tz` — an IANA time zone name, such as `Europe/Lisbon` (its `/` may
+  come as `%2F`): the time labels in its local time, daylight saving
+  included. UTC by default.
 
 The image is what a page of the Nonius package draws for a chart of this
 one series on a canvas of that size, at that ratio, over that range,
@@ -474,13 +479,32 @@ with no pointer: its value range autoscaled over the range and padded,
 the axes and labels drawn. The reference server draws it on the CPU with
 the same code.
 
-A missing or unreadable parameter, a side or a ratio out of range, an
-image too small at that ratio to hold its axes and a plot, or `from`
-not before `to` is `400`, the answer naming what was wrong; a
-range with no point in it is `404`. The answer is `image/png`, 8-bit
-RGBA. Its `ETag` is the FNV-1a-64 of the image's bytes, 16 lowercase hex
-digits in quotes: a matching `If-None-Match` is answered `304`; and,
-the history being fixed, it is cached as tiles are.
+A missing or unreadable parameter, a side or a ratio out of range, a
+`gap` of 0, a `tz` that names no zone, an image too small at that ratio
+to hold its axes and a plot, or `from` not before `to` is `400`, the
+answer naming what was wrong; a range with no point in it is `404`. The
+answer is `image/png`, 8-bit RGBA. Its `ETag` is the FNV-1a-64 of the
+image's bytes, 16 lowercase hex digits in quotes: a matching
+`If-None-Match` is answered `304`; and, the history being fixed, it is
+cached as tiles are.
+
+### Where the plot is
+
+Every image, and every `304` for one, says where its plot is and what it
+spans, in two headers readable from any origin:
+
+- `Nonius-Plot: X Y PW PH` — the plot's rectangle in the image's
+  pixels: its left column, its top row, its width and its height.
+- `Nonius-Range: LO HI` — the values on the plot's bottom and top rows,
+  scaled as `v`.
+
+With `[from, to)`, these are exactly what a pick reads (§8): a pixel
+`(px, py)` of the image is the pick's `column = px − X` and
+`row = Y + PH − 1 − py`, with `start = from`, `end = to`, `width = PW`,
+`lo = LO`, `hi = HI` and `rows = PH`. The other way, a point `(t, v)` is
+on column `floor((t − from)·PW / (to − from))` and on row
+`floor((v − LO)·(PH − 1) / (HI − LO))` from the bottom: something drawn
+over the image at that pixel is where the line passes the point.
 
 ## 10. Versions
 

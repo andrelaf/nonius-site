@@ -203,6 +203,11 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
     std::fs::write("day.png", png)?;
     Ok(())
 }</code></pre>
+  <p>An image says where its plot is and what it spans, so a click on it picks the exact
+  point and a mark drawn over it lands where the line is: the server's <code>/png</code>
+  answers <code>Nonius-Plot</code> and <code>Nonius-Range</code>, and
+  <code>still_placement</code>, C's <code>nonius_still_placement</code> and .NET's
+  <code>Series.StillPlacement</code> give the same numbers.</p>
 
   <h3>The browser: a chart a person can pan and zoom</h3>
 <pre data-quote="crates/check-registry.sh"><code>npm install nonius</code></pre>
