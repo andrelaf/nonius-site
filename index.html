@@ -165,7 +165,7 @@
 cargo add nonius-render --no-default-features</code></pre>
   <p>Read the file in place, keep it as a pyramid of summaries, and draw any view
   of it, here the whole series:</p>
-<pre data-quote="crates/nonius-render/README.md"><code>use nonius_core::{Loaded, Pyramid, Series, Width};
+<pre data-quote="crates/nonius-render/README.md"><code>use nonius_core::{Loaded, Pyramid, Series, Width, Zone};
 use nonius_format::{AlignedBytes, Container};
 use nonius_render::{Still, Theme, still_png};
 
@@ -194,6 +194,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
         ratio: 2.0,
         scale: series.scale(),
         gap: None,
+        zone: Zone::UTC,
     })?;
     std::fs::write("day.png", png)?;
     Ok(())
@@ -221,6 +222,11 @@ chart.setView(start, end, lo, hi);</code></pre>
   next unless you say how long a pause is a gap: <code>chart.setSeriesGap(id, ns)</code>
   breaks the line wherever a point comes more than <code>ns</code> nanoseconds after the
   one before, in the same places at every zoom.</p>
+  <p>Time is labelled in UTC until you name a zone:
+  <code>setTimeZone(chart, "Europe/Lisbon")</code> labels the axis, the crosshair and
+  the tooltip in its local time, on both sides of each daylight-saving change, from
+  the browser's own time zone data. The server's images take <code>tz=</code>, and the
+  .NET chart a <code>TimeZoneInfo</code>.</p>
 
   <h3>.NET: the same core, from C#</h3>
 <pre data-not-run="the packages are not on NuGet yet: they publish from GitHub Actions"><code>dotnet add package Nonius</code></pre>

@@ -167,7 +167,7 @@
 cargo add nonius-render --no-default-features</code></pre>
   <p>Leia o arquivo no lugar, guarde-o como uma pirâmide de resumos e desenhe
   qualquer visualização dele; aqui, a série inteira:</p>
-<pre data-quote="crates/nonius-render/README.md"><code>use nonius_core::{Loaded, Pyramid, Series, Width};
+<pre data-quote="crates/nonius-render/README.md"><code>use nonius_core::{Loaded, Pyramid, Series, Width, Zone};
 use nonius_format::{AlignedBytes, Container};
 use nonius_render::{Still, Theme, still_png};
 
@@ -196,6 +196,7 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
         ratio: 2.0,
         scale: series.scale(),
         gap: None,
+        zone: Zone::UTC,
     })?;
     std::fs::write("day.png", png)?;
     Ok(())
@@ -224,6 +225,11 @@ chart.setView(start, end, lo, hi);</code></pre>
   seguinte, a menos que você diga quanto tempo de pausa é uma lacuna:
   <code>chart.setSeriesGap(id, ns)</code> quebra a linha onde um ponto chega mais de
   <code>ns</code> nanossegundos depois do anterior, nos mesmos lugares em qualquer zoom.</p>
+  <p>O tempo sai em UTC até você indicar um fuso:
+  <code>setTimeZone(chart, "America/Sao_Paulo")</code> mostra o eixo, a mira e o
+  tooltip na hora local, dos dois lados de cada troca de horário de verão, com os
+  dados de fuso do próprio navegador. As imagens do servidor aceitam <code>tz=</code>, e o
+  gráfico do .NET, um <code>TimeZoneInfo</code>.</p>
 
   <h3>.NET: o mesmo núcleo, em C#</h3>
 <pre data-not-run="os pacotes ainda não estão no NuGet: eles são publicados pelo GitHub Actions"><code>dotnet add package Nonius</code></pre>
