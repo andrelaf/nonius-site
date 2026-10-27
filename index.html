@@ -199,6 +199,8 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
         scale: series.scale(),
         gap: None,
         zone: Zone::UTC,
+        title: None,
+        unit: None,
     })?;
     std::fs::write("day.png", png)?;
     Ok(())
@@ -236,6 +238,13 @@ chart.setView(start, end, lo, hi);</code></pre>
   the tooltip in its local time, on both sides of each daylight-saving change, from
   the browser's own time zone data. The server's images take <code>tz=</code>, and the
   .NET chart a <code>TimeZoneInfo</code>.</p>
+  <p>A title and a unit go on the chart itself, not in the page around it:
+  <code>createChart(canvas, { title: "Room temperature", unit: "°C" })</code> draws a
+  header row above the plot, the title on the left and the unit over the value labels,
+  so a PNG sent by e-mail or a .NET desktop chart says what it shows. Labels draw
+  Latin-1 — every accent of Portuguese, Spanish, French and German — and a few marks
+  such as € and “ ”. The server's images take <code>title=</code> and <code>unit=</code>,
+  and the .NET chart <code>Title</code> and <code>Unit</code>.</p>
 
   <h3>.NET: the same core, from C#</h3>
 <pre data-not-run="the packages are not on NuGet yet: they publish from GitHub Actions"><code>dotnet add package Nonius</code></pre>

@@ -201,6 +201,8 @@ fn main() -&gt; Result&lt;(), Box&lt;dyn std::error::Error&gt;&gt; {
         scale: series.scale(),
         gap: None,
         zone: Zone::UTC,
+        title: None,
+        unit: None,
     })?;
     std::fs::write("day.png", png)?;
     Ok(())
@@ -239,6 +241,14 @@ chart.setView(start, end, lo, hi);</code></pre>
   tooltip na hora local, dos dois lados de cada troca de horário de verão, com os
   dados de fuso do próprio navegador. As imagens do servidor aceitam <code>tz=</code>, e o
   gráfico do .NET, um <code>TimeZoneInfo</code>.</p>
+  <p>O título e a unidade ficam no próprio gráfico, não na página em volta:
+  <code>createChart(canvas, { title: "Temperatura média", unit: "°C" })</code> desenha
+  uma linha de cabeçalho acima da área do gráfico, o título à esquerda e a unidade
+  sobre os valores, então um PNG enviado por e-mail ou um gráfico de desktop em .NET
+  diz o que mostra. Os rótulos desenham Latin-1 — todos os acentos do português, do
+  espanhol, do francês e do alemão — e alguns sinais, como € e “ ”. As imagens do
+  servidor aceitam <code>title=</code> e <code>unit=</code>, e o gráfico do .NET,
+  <code>Title</code> e <code>Unit</code>.</p>
 
   <h3>.NET: o mesmo núcleo, em C#</h3>
 <pre data-not-run="os pacotes ainda não estão no NuGet: eles são publicados pelo GitHub Actions"><code>dotnet add package Nonius</code></pre>

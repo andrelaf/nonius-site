@@ -460,7 +460,7 @@ force. The reference server answers with the same code that draws.
 A server may draw a series as an image — for a report, a thumbnail, a
 message — with no browser:
 
-`GET /v1/series/{id}/png?from=F&to=T&width=W&height=H[&theme=dark|light][&ratio=R][&gap=G][&tz=Z]`
+`GET /v1/series/{id}/png?from=F&to=T&width=W&height=H[&theme=dark|light][&ratio=R][&gap=G][&tz=Z][&title=S][&unit=U]`
 
 - `[from, to)` — the time shown, nanoseconds, `from` before `to`.
 - `width`, `height` — the image, pixels, each 16 to 4096.
@@ -472,6 +472,13 @@ message — with no browser:
 - `tz` — an IANA time zone name, such as `Europe/Lisbon` (its `/` may
   come as `%2F`): the time labels in its local time, daylight saving
   included. UTC by default.
+- `title`, `unit` — text in a header row above the plot: the title on
+  the left, cut with "…" when too wide, the unit (such as `°C`) over the
+  value labels. UTF-8, form-encoded as a browser's `URLSearchParams`
+  writes it: a space as `+`, a plus as `%2B`, any other byte `%XX`. The
+  labels draw Latin-1 and € − – — ‘ ’ “ ” … •; any other character as
+  `?`. An empty text is none; the plot gives the row up while there is
+  either, and `Nonius-Plot` says where it went. None by default.
 
 The image is what a page of the Nonius package draws for a chart of this
 one series on a canvas of that size, at that ratio, over that range,
@@ -480,7 +487,8 @@ the axes and labels drawn. The reference server draws it on the CPU with
 the same code.
 
 A missing or unreadable parameter, a side or a ratio out of range, a
-`gap` of 0, a `tz` that names no zone, an image too small at that ratio
+`gap` of 0, a `tz` that names no zone, a `title` or `unit` that is not
+percent-encoded UTF-8, an image too small at that ratio
 to hold its axes and a plot, or `from` not before `to` is `400`, the
 answer naming what was wrong; a range with no point in it is `404`. The
 answer is `image/png`, 8-bit RGBA. Its `ETag` is the FNV-1a-64 of the
