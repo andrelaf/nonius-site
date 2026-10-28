@@ -1,0 +1,1096 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Guias do Nonius</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-ec15c580.svg">
+        <link rel="shortcut icon" href="favicon-487aa1c1.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/nonius-9ebbfd8b.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-b48cda15.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a99c64e8.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Guias do Nonius</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p class="lang"><a href="../../guides/index.html" hreflang="en" lang="en">English</a></p>
+
+<h1 id="introdução"><a class="header" href="#introdução">Introdução</a></h1>
+<p>O Nonius desenha séries temporais densas, do servidor ao pixel, exato até o nanossegundo em qualquer zoom. A página de cada pacote diz como usar aquele pacote; estes guias dizem como eles se encaixam para uma tarefa — dos dados que você tem até um gráfico numa página, numa janela de desktop ou numa imagem.</p>
+<p>A <a href="https://andrelaf.github.io/nonius-site/pt/">página do produto</a> diz
+para que serve o Nonius e lista os seus pacotes; a página de cada
+pacote, no crates.io, no npm ou no NuGet, é a sua referência.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p class="lang"><a href="../../guides/choose-a-path.html" hreflang="en" lang="en">English</a></p>
+
+<h1 id="escolha-o-caminho"><a class="header" href="#escolha-o-caminho">Escolha o caminho</a></h1>
+<p>Todo gráfico do Nonius desenha a mesma coisa — uma série de pontos em
+ordem de tempo —, mas os pontos podem chegar até ele de quatro jeitos.
+Qual serve depende de duas perguntas: onde estão os pontos agora, e eles
+param de chegar? (Uma palavra nova — um tile, um resumo — está no
+<a href="#glossário">glossário</a>.)</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Seus pontos</th><th>Caminho</th><th>O que o gráfico guarda</th></tr>
+</thead>
+<tbody>
+<tr><td>Já estão na página, gerados ou buscados pelo seu próprio código</td><td><a href="#entregue-os">Entregue-os</a></td><td>Todos</td></tr>
+<tr><td>Um histórico fechado, pequeno o bastante para mandar inteiro</td><td><a href="#um-arquivo">Um arquivo</a></td><td>Todos, buscados uma vez</td></tr>
+<tr><td>Um histórico longo demais para mandar, ou que muita gente lê</td><td><a href="#tiles-de-um-servidor">Tiles de um servidor</a></td><td>Só o que a vista na tela precisa</td></tr>
+<tr><td>Chegando agora, conforme acontecem</td><td><a href="#um-feed-ao-vivo">Um feed ao vivo</a></td><td>Os mais novos, conforme chegam</td></tr>
+</tbody>
+</table>
+</div>
+<p>E quando não há navegador nenhum — um relatório mandado por e-mail, um
+programa de desktop, um servidor que responde com uma figura —, o
+gráfico é <a href="#uma-imagem">desenhado como imagem</a>.</p>
+<p>“Pequeno o bastante para mandar inteiro” é questão de conta. Um ponto
+tem 24 bytes (um tempo, um valor e um peso, 8 bytes cada), então dez
+milhões de pontos são um arquivo de 240 MB, baixado antes do primeiro
+quadro e guardado na memória do navegador. Um dia de leituras uma por
+segundo são 86.400 pontos, 2 MB: o arquivo é a escolha simples. Anos de
+leituras uma por milissegundo são centenas de gigabytes: só tiles chegam
+lá.</p>
+<h2 id="entregue-os"><a class="header" href="#entregue-os">Entregue-os</a></h2>
+<p>Sua página já tem os pontos — calculados, lidos da sua própria API,
+decodificados do seu próprio formato. Entregue-os ao gráfico em ordem de
+tempo, quantos quiser de cada vez. O exemplo do pacote do navegador:</p>
+<!-- quote: examples/web/sources/points.js -->
+<pre><code class="language-js">const chart = await createChart(canvas);
+chart.setScale(2);
+chart.push(t, v, w);
+</code></pre>
+<p><code>t</code>, <code>v</code> e <code>w</code> são colunas de inteiros; <a href="#seus-dados">Seus dados</a> diz
+como uma leitura vira esses inteiros, e por que <code>setScale(2)</code>.</p>
+<h2 id="um-arquivo"><a class="header" href="#um-arquivo">Um arquivo</a></h2>
+<p>Um arquivo de série guarda um histórico fechado no formato do próprio
+Nonius, o <code>NSB1</code>. O gráfico busca o arquivo inteiro e lê seus bytes onde
+eles chegam, sem etapa de decodificação, então um arquivo de milhões de
+pontos é desenhado assim que termina de chegar.</p>
+<!-- quote: examples/web/sources/file.js -->
+<pre><code class="language-js">const chart = await createChart(canvas);
+await loadNsb(chart, await fetch(url));
+</code></pre>
+<p>O arquivo é escrito uma vez, de onde os dados estiverem: um CSV, um
+programa em Rust ou .NET, o Node. <a href="#seus-dados">Seus dados</a> mostra
+cada um.</p>
+<h2 id="tiles-de-um-servidor"><a class="header" href="#tiles-de-um-servidor">Tiles de um servidor</a></h2>
+<p>Quando o histórico é longo demais para mandar, um servidor o guarda e
+manda tiles: pedaços pequenos cortados para a vista na tela, cada um com
+mais ou menos os bytes dos seus pixels, seja qual for o tamanho do
+histórico. Com o zoom aberto em dez anos, o gráfico lê resumos; com o
+zoom num segundo, os pontos daquele segundo. O gráfico busca tiles
+conforme a pessoa arrasta e dá zoom.</p>
+<!-- quote: examples/web/sources/tiles.js -->
+<pre><code class="language-js">import { attachTiles, createChart, fetchSeries, interact } from "nonius";
+
+// A series on a Nonius server, drawn from its tiles: the chart holds only
+// what its views need and fetches the rest as a person moves, however long
+// the history. `url` is the series' address, `…/v1/series/{id}`.
+export async function fromServer(canvas, url) {
+  // Asked for first, so the answer comes while the WebAssembly downloads.
+  const meta = fetchSeries(url);
+  const chart = await createChart(canvas);
+  // Opens the chart on the whole series.
+  const tiles = await attachTiles(chart, url, { meta });
+  const interaction = interact(chart, canvas, { tiles });
+  return { chart, tiles, interaction };
+}
+</code></pre>
+<p>Esse é um módulo inteiro. O <code>fetchSeries</code> fica sem <code>await</code> de
+propósito: o gráfico recebe a promise, e a resposta chega enquanto o
+WebAssembly baixa. O <code>interact</code> recebe os tiles, para que cada vista
+para onde a pessoa se move busque os tiles de que precisa. <code>url</code> é o
+endereço da série no servidor, <code>http://host:porta/v1/series/{id}</code>. O servidor pode ser o
+<code>nonius-server</code>, a partir de um arquivo de série, ou o seu, falando o
+<a href="https://github.com/andrelaf/nonius-site/blob/main/specs/protocol.md">protocolo do Nonius</a>.
+<a href="#servir">Servir</a> mostra como rodar um.</p>
+<h2 id="um-feed-ao-vivo"><a class="header" href="#um-feed-ao-vivo">Um feed ao vivo</a></h2>
+<p>Pontos que estão acontecendo agora chegam por um WebSocket, como
+quadros numerados enviados pelo crate Rust
+<a href="https://crates.io/crates/nonius-live"><code>nonius-live</code></a>. O gráfico
+acompanha os pontos mais novos; um quadro que a rede perde é notado
+pelo número e pedido de novo.</p>
+<!-- quote: examples/web/sources/live.js -->
+<pre><code class="language-js">const chart = await createChart(canvas);
+// A feed's values are integers and carry no scale: say how many decimal
+// places they have (2 here: 10_050 is 100.50).
+chart.setScale(2);
+const stream = streamInto(chart, url);
+</code></pre>
+<h2 id="uma-imagem"><a class="header" href="#uma-imagem">Uma imagem</a></h2>
+<p>O mesmo gráfico, desenhado como PNG na CPU: sem navegador, sem GPU. Um
+servidor responde a <code>GET /v1/series/{id}/png?from=…&amp;to=…&amp;width=…&amp;height=…</code>;
+no .NET, a série se desenha:</p>
+<!-- quote: dotnet/tests/Nonius.Tests/QuickStart.cs -->
+<pre><code class="language-csharp">// Light, for a box of 1200 × 400 CSS pixels at a pixel ratio of 2:
+// the size is in device pixels, the ratio in thousandths.
+byte[] image = series.StillPng(new Still(first, last + 1, 2400, 800, Theme.Light, RatioPermille: 2000));
+File.WriteAllBytes(png, image);
+</code></pre>
+<p>e no Rust, o <code>nonius-render</code> faz isso. A imagem é o quadro que o
+navegador desenha, pixel por pixel no canvas 2D, então um relatório e
+uma página concordam. <a href="#desenhar">Desenhar</a> mostra cada um.</p>
+<h2 id="na-dúvida"><a class="header" href="#na-dúvida">Na dúvida?</a></h2>
+<p>Comece por um arquivo. É uma busca e uma chamada, e o arquivo que ele
+pede é o que um servidor serve depois: passar para tiles muda como o
+gráfico é alimentado, não os dados.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p class="lang"><a href="../../guides/your-data.html" hreflang="en" lang="en">English</a></p>
+
+<h1 id="seus-dados"><a class="header" href="#seus-dados">Seus dados</a></h1>
+<p>Todo pacote recebe a mesma coisa: pontos <code>{ t, v, w }</code>, em ordem de
+tempo. Uma leitura de sensor, uma negociação e uma amostra de CPU
+entram assim, e o Nonius nunca sabe qual é qual. Este capítulo mostra
+como suas leituras viram pontos, e como pontos viram um arquivo de
+série.</p>
+<h2 id="um-ponto"><a class="header" href="#um-ponto">Um ponto</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Campo</th><th>O que é</th><th>Tipo</th></tr>
+</thead>
+<tbody>
+<tr><td><code>t</code></td><td>o tempo: nanossegundos desde 1970-01-01 00:00 UTC</td><td>um inteiro de 64 bits com sinal</td></tr>
+<tr><td><code>v</code></td><td>o valor: um inteiro com um número fixo de casas decimais</td><td>um inteiro de 64 bits com sinal</td></tr>
+<tr><td><code>w</code></td><td>o peso: 1 para uma leitura simples</td><td>um inteiro de 64 bits sem sinal</td></tr>
+</tbody>
+</table>
+</div>
+<p>Os três são inteiros, e esse é o sentido do formato: nada passa por um
+número de ponto flutuante a caminho da tela, então nada é arredondado.</p>
+<h2 id="tempo"><a class="header" href="#tempo">Tempo</a></h2>
+<p>Um tempo é uma contagem de nanossegundos desde a época Unix, em UTC —
+nunca um horário local. Uma contagem de 64 bits alcança uns 292 anos
+para cada lado de 1970 e guarda cada nanossegundo: uma vista de poucos
+nanossegundos em 2026 ainda desenha cada ponto onde ele está. Esse é o
+“exato em qualquer zoom” do Nonius.</p>
+<p>Converter é uma multiplicação:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>De</th><th>Para nanossegundos</th></tr>
+</thead>
+<tbody>
+<tr><td>Segundos Unix</td><td>× 1.000.000.000</td></tr>
+<tr><td><code>Date.parse</code> do JavaScript (milissegundos)</td><td>× 1.000.000, como <code>BigInt</code></td></tr>
+<tr><td><code>DateTime</code> do .NET (UTC)</td><td><code>(time - DateTime.UnixEpoch).Ticks * 100</code></td></tr>
+<tr><td>Um texto ISO 8601, num CSV</td><td>o <code>nonius-server csv</code> lê, com <code>Z</code> ou um deslocamento como <code>-03:00</code>, e até nove casas decimais de segundo</td></tr>
+</tbody>
+</table>
+</div>
+<p>Os pontos vêm em ordem de tempo. Dois pontos podem ter o mesmo tempo; um
+ponto anterior ao que veio antes é recusado, com a linha onde aconteceu.</p>
+<h2 id="valores"><a class="header" href="#valores">Valores</a></h2>
+<p>Um valor é um inteiro, e a série diz quantas casas decimais ele tem: a
+sua <em>escala</em> (também chamada de expoente). Com duas casas, 21,37 °C é
+<code>2137</code>; com três, uma tensão de 4,217 é <code>4217</code>. A escala é um número só
+para a série inteira, escolhido uma vez: o máximo de casas decimais que
+seus valores têm.</p>
+<p>Por que não um número de ponto flutuante? Porque nele <code>0.1 + 0.2</code> não é
+<code>0.3</code>, e um gráfico que resume milhões de pontos levaria esses erros até
+os rótulos. Um inteiro é exato, e a escala só põe a vírgula de volta
+quando um rótulo é desenhado.</p>
+<p>Um inteiro de 64 bits guarda até uns 9,2 × 10¹⁸: com duas casas
+decimais, valores até uns 92 quatrilhões. Escolher mais casas do que
+seus dados têm só custa alcance.</p>
+<h2 id="o-peso"><a class="header" href="#o-peso">O peso</a></h2>
+<p><code>w</code> é quanto um ponto conta. Para uma leitura, é 1. Para uma
+negociação, pode ser o volume. Os <a href="#a-pirâmide">resumos</a> do gráfico somam os pesos,
+então o resumo de um minuto sabe quanto aconteceu nele, não só a máxima
+e a mínima. Quando fica de fora (no <code>encodeNsb</code> do JavaScript, num CSV
+sem coluna de peso), todo peso é 1.</p>
+<h2 id="lacunas"><a class="header" href="#lacunas">Lacunas</a></h2>
+<p>A linha liga cada ponto ao seguinte, por mais distantes que estejam. Um
+sensor que manda dados em rajadas, ou que ficou desligado por um dia, é
+desenhado como uma linha contínua, a menos que você diga onde ela
+quebra: <code>chart.setSeriesGap(0, 60_000_000_000n)</code> no navegador (o id da
+série, 0 para a primeira, e depois nanossegundos como <code>BigInt</code>), <code>gap=</code>
+na imagem de um servidor, <code>Gap</code> no .NET. A linha quebra sempre que um
+ponto vem mais que esses nanossegundos depois do anterior.</p>
+<p>O gráfico não adivinha a lacuna: você conhece o ritmo dos seus dados, e
+um palpite quebraria a linha em lugares diferentes em zooms diferentes.
+Algumas vezes o espaçamento normal é um bom começo: para uma leitura a
+cada 10 segundos, um minuto mantém ligadas uma ou duas leituras
+perdidas e ainda quebra numa interrupção.</p>
+<h2 id="fusos-horários"><a class="header" href="#fusos-horários">Fusos horários</a></h2>
+<p>Os dados estão sempre em UTC. Um fuso muda só os rótulos: diga qual
+(<code>timeZone: "Europe/Lisbon"</code> no navegador, <code>tz=</code> na imagem de um
+servidor, um <code>TimeZoneInfo</code> no .NET) e o eixo, a mira e o tooltip leem
+o relógio local, dos dois lados de cada entrada e saída do horário de
+verão.</p>
+<h2 id="escrever-um-arquivo-de-série"><a class="header" href="#escrever-um-arquivo-de-série">Escrever um arquivo de série</a></h2>
+<p>Um arquivo de série — formato <code>NSB1</code> — guarda as três colunas, a escala
+e uma soma de verificação. Todo pacote escreve os mesmos bytes para os
+mesmos pontos, pelo mesmo código Rust, então um arquivo escrito no .NET
+é lido pelo navegador e servido pelo <code>nonius-server</code> sem nenhuma etapa
+no meio.</p>
+<h3 id="de-um-csv-sem-código"><a class="header" href="#de-um-csv-sem-código">De um CSV, sem código</a></h3>
+<p>O <code>nonius-server</code> transforma um CSV num arquivo de série. Cada linha é
+um tempo e um valor, com ou sem cabeçalho:</p>
+<!-- not run: a file's contents, not a command -->
+<pre><code class="language-text">time,price
+1788220800000000000,101.25
+1788220800000001500,99.5
+</code></pre>
+<!-- quote: crates/check-registry.sh -->
+<pre><code class="language-sh">nonius-server csv prices.csv prices.nsb
+nonius-server csv sheet.csv day.nsb --delimiter ';' --time time --value price --weight volume
+</code></pre>
+<p>A primeira linha toma a primeira coluna como tempo e a segunda como
+valor. A segunda dá nome às colunas da exportação de uma planilha, com
+<code>;</code> entre os campos e vírgula decimal. Nada é arredondado: o valor é
+guardado com o máximo de casas decimais que algum valor do arquivo tem.
+As opções (<code>--time-unit</code>, <code>--decimals</code> e as outras) estão na
+<a href="https://crates.io/crates/nonius-server">página do <code>nonius-server</code></a>.</p>
+<h3 id="do-rust"><a class="header" href="#do-rust">Do Rust</a></h3>
+<!-- quote: crates/nonius-core/README.md -->
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// A reading of 21.37 °C at two decimal places is 2137; w is 1 for a
+// plain reading.
+let points = [Point { t: 1_735_689_600_000_000_000, v: 2137, w: 1 }];
+let file = File::options().read(true).write(true).create(true).truncate(true).open("day.nsb")?;
+write_series(file, &amp;points, Scale::new(2)?)?;
+<span class="boring">}</span></code></pre>
+<p>O <code>write_series</code> está no <code>nonius-core</code>, com a feature <code>std</code>. O arquivo
+é aberto para leitura e escrita: o escritor relê o que escreveu para
+calcular o hash.</p>
+<h3 id="do-net"><a class="header" href="#do-net">Do .NET</a></h3>
+<!-- quote: dotnet/tests/Nonius.Tests/Readings.cs -->
+<pre><code class="language-csharp">(DateTime Time, decimal Celsius)[] readings =
+[
+    (new DateTime(2026, 3, 1, 0, 0, 0, DateTimeKind.Utc), 21.37m),
+    (new DateTime(2026, 3, 1, 0, 0, 1, 500, DateTimeKind.Utc), 21.4m),
+    (new DateTime(2026, 3, 1, 0, 0, 3, DateTimeKind.Utc), -0.05m),
+];
+// A time is nanoseconds since 1970 (UTC), and a tick is 100 of
+// them. A value is an integer of the decimal places kept, here 2:
+// 21.4 is 2140. w is 1 for a plain reading.
+var points = readings
+    .Select(r =&gt; new Point((r.Time - DateTime.UnixEpoch).Ticks * 100, (long)decimal.Round(r.Celsius * 100m), 1))
+    .ToArray();
+using var file = File.Create(path);
+Nsb.Write(file, points, 2);
+</code></pre>
+<p><code>Nsb.Encode(points, 2)</code> dá os mesmos bytes como <code>byte[]</code>. Os dois estão
+no pacote NuGet <code>Nonius</code>.</p>
+<h3 id="do-javascript"><a class="header" href="#do-javascript">Do JavaScript</a></h3>
+<p>No Node (20.16 ou mais novo) ou no navegador, o <code>encodeNsb</code> do pacote
+npm <code>nonius</code>:</p>
+<!-- quote: npm/consumer/readings.mjs -->
+<pre><code class="language-js">const readings = [
+  { time: "2026-03-01T00:00:00Z", celsius: "21.37" },
+  { time: "2026-03-01T00:00:01.5Z", celsius: "21.4" },
+  { time: "2026-03-01T00:00:03Z", celsius: "-0.05" },
+];
+
+// A time is nanoseconds since 1970 (UTC), a BigInt. `Date` counts
+// milliseconds, so a finer time needs its own parsing.
+const nanoseconds = (iso) =&gt; BigInt(Date.parse(iso)) * 1_000_000n;
+
+// A value is an integer of the decimal places you keep, here 2, read
+// from its text and never through a float: "21.4" is 2140.
+function hundredths(text) {
+  const [whole, fraction = ""] = text.split(".");
+  if (fraction.length &gt; 2) throw new Error(`${text} has more than 2 decimal places`);
+  const sign = whole.startsWith("-") ? -1n : 1n;
+  return sign * (BigInt(whole.replace("-", "")) * 100n + BigInt(fraction.padEnd(2, "0")));
+}
+
+const t = BigInt64Array.from(readings, (r) =&gt; nanoseconds(r.time));
+const v = BigInt64Array.from(readings, (r) =&gt; hundredths(r.celsius));
+writeFileSync("readings.nsb", await encodeNsb({ t, v }, 2));
+</code></pre>
+<p>O valor é lido do texto de propósito: <code>Math.round(21.4 * 100)</code> acerta
+aqui, mas um float não guarda todo decimal, e o texto sempre guarda.</p>
+<h2 id="próximo"><a class="header" href="#próximo">Próximo</a></h2>
+<p>Com um arquivo de série, <a href="#escolha-o-caminho">escolha o caminho</a> até o
+gráfico. Se ele for servido em tiles, <a href="#a-pirâmide">a pirâmide</a> é como o
+servidor o resume.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p class="lang"><a href="../../guides/pyramid.html" hreflang="en" lang="en">English</a></p>
+
+<h1 id="a-pirâmide"><a class="header" href="#a-pirâmide">A pirâmide</a></h1>
+<p>Um ano de leituras uma por segundo são 31,5 milhões de pontos. Uma tela
+tem uns 2.000 pixels de largura. Ler os 31,5 milhões de pontos para
+desenhar 2.000 colunas, sessenta vezes por segundo enquanto a pessoa
+arrasta, é lento demais — e mandá-los pela rede, mais ainda. A
+pirâmide é como o Nonius desenha esse ano a partir de alguns milhares
+de números, e ainda desenha exatamente a linha que todos os pontos
+desenhariam.</p>
+<h2 id="um-resumo-o-bucket"><a class="header" href="#um-resumo-o-bucket">Um resumo: o bucket</a></h2>
+<p>Um <em>bucket</em> resume os pontos de um trecho de tempo em oito números:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Campo</th><th>O que guarda</th></tr>
+</thead>
+<tbody>
+<tr><td><code>first_t</code>, <code>first_v</code></td><td>o tempo e o valor do primeiro ponto</td></tr>
+<tr><td><code>last_t</code>, <code>last_v</code></td><td>o tempo e o valor do último ponto</td></tr>
+<tr><td><code>min</code>, <code>max</code></td><td>o menor e o maior valor</td></tr>
+<tr><td><code>count</code></td><td>quantos pontos</td></tr>
+<tr><td><code>weight</code></td><td>a soma dos pesos</td></tr>
+</tbody>
+</table>
+</div>
+<p>Dois buckets vizinhos se juntam num só: o primeiro do primeiro, o
+último do segundo, o menor dos dois mínimos, o maior dos dois máximos,
+as contagens e os pesos somados. Assim um bucket de um minuto sai de
+quatro de quinze segundos, sem voltar aos pontos.</p>
+<h2 id="níveis"><a class="header" href="#níveis">Níveis</a></h2>
+<p>A pirâmide é feita de níveis de buckets. Os buckets do nível 0 têm a
+largura da <em>base</em> — digamos, um segundo. Cada nível acima é quatro
+vezes mais largo: 4 s, 16 s, 64 s, e assim por diante. Os buckets são
+alinhados a 1970, então todo cliente e todo servidor os cortam nos
+mesmos lugares. Um trecho sem pontos não tem bucket.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Nível</th><th>Largura do bucket, base 1 s</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>1 s</td></tr>
+<tr><td>1</td><td>4 s</td></tr>
+<tr><td>2</td><td>16 s</td></tr>
+<tr><td>4</td><td>4 min 16 s</td></tr>
+<tr><td>8</td><td>18 h 12 min</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="o-que-uma-vista-lê"><a class="header" href="#o-que-uma-vista-lê">O que uma vista lê</a></h2>
+<p>Uma vista é um intervalo de tempo sobre um número de colunas de pixels.
+Cada coluna cobre um trecho de tempo; o gráfico escolhe o nível mais
+grosso cujos buckets cabem pelo menos 16 numa coluna, e os junta num
+resumo por coluna. Quando nem o nível 0 serve — menos de 16 larguras de
+base por coluna, no fundo de um zoom —, ele lê os pontos crus.</p>
+<p>Então um quadro lê entre 16 e 64 buckets por coluna, alguns milhares de
+números para a tela inteira, seja qual for o tamanho do histórico. E a
+linha é exata: uma coluna desenhada do menor ao maior valor, ligada à
+seguinte do seu último valor ao primeiro da próxima, é a mesma, pixel
+por pixel, que a linha desenhada com todos os pontos. A pirâmide muda
+quanto se lê, nunca o que se desenha.</p>
+<h2 id="escolher-a-base-e-os-níveis"><a class="header" href="#escolher-a-base-e-os-níveis">Escolher a base e os níveis</a></h2>
+<p>Dois números, definidos onde a pirâmide é construída:</p>
+<ul>
+<li>
+<p><strong>A base: mais ou menos o espaçamento dos seus pontos onde eles são
+mais densos.</strong> Uma leitura por segundo, base de um segundo. Pontos em
+rajadas — mil por segundo durante dez segundos a cada hora — usam o
+espaçamento dentro da rajada, um milissegundo. Uma base muito mais
+fina que os pontos custa memória (64 bytes por bucket); muito mais
+grossa, e um zoom profundo lê mais pontos crus por coluna do que
+precisa.</p>
+</li>
+<li>
+<p><strong>Os níveis: o suficiente para a sua vista mais larga.</strong> Uma vista lê
+no máximo 64 buckets por coluna enquanto o nível do topo for fino o
+bastante; depois disso, os buckets do topo se acumulam. Use níveis
+suficientes para que</p>
+<p><code>base × 4^(níveis − 1) ≥ intervalo mais largo ÷ (64 × largura do gráfico)</code></p>
+<p>com a largura do gráfico em pixels do dispositivo (pixels CSS × a
+razão de pixels). Use <strong>pelo menos 2</strong>, mesmo quando a regra dá 1: o
+servidor sempre mantém o nível do topo, então um nível 0 sozinho, com
+um ponto por bucket, fica inteiro (<a href="#o-que-custa">O que custa</a>). Três
+dias de leituras a cada 10 segundos, base de 10 s, custam 88 bytes
+por ponto num arquivo de pirâmide com 1 nível e 40 com 2. Níveis a
+mais custam pouco — 44 bytes com 3, 46 com 9 —, então na dúvida use
+mais.</p>
+</li>
+</ul>
+<p><strong>Exemplo:</strong> pontos a um segundo de distância, um ano mostrado em 2.000
+pixels. O intervalo mais largo é 31.536.000 s; dividido por 64 × 2.000,
+dá uns 246 s. Com base de 1 s, o nível do topo precisa ter pelo menos
+246 s: 4⁴ = 256 s é o nível 4, então <strong>5 níveis</strong>.</p>
+<p>Nenhum dos dois números é uma promessa que você não pode mudar: um
+arquivo de série guarda os pontos, não uma pirâmide, que é construída a
+partir deles quando o gráfico ou o servidor carrega o arquivo. (O
+arquivo de pirâmide de um servidor guarda uma já construída, e é
+construído de novo para mudá-la.)</p>
+<h2 id="onde-eles-são-definidos"><a class="header" href="#onde-eles-são-definidos">Onde eles são definidos</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Onde</th><th>Como</th><th>Padrão</th></tr>
+</thead>
+<tbody>
+<tr><td>Navegador</td><td><code>createChart(canvas, { baseNs, levels })</code></td><td>1 s, 9 níveis</td></tr>
+<tr><td>.NET</td><td><code>new Series(exponent, baseNs, levels)</code></td><td>1 s, 9 níveis</td></tr>
+<tr><td><code>nonius-server</code></td><td><code>--base-ns N --levels L</code></td><td>1 ms, 12 níveis</td></tr>
+<tr><td>Rust</td><td><code>Pyramid::new(base, levels)</code></td><td>—</td></tr>
+</tbody>
+</table>
+</div>
+<p>Os padrões cobrem anos de pontos a um segundo de distância. A base de
+um milissegundo do <code>nonius-server</code> serve para dados rápidos; para um
+sensor que lê a cada poucos segundos, passe <code>--base-ns</code>. Um gráfico
+alimentado por tiles usa a pirâmide do servidor, dos seus metadados:
+os ajustes do próprio gráfico são para pontos que você entrega.</p>
+<p>No Rust, construir uma pirâmide são duas chamadas:</p>
+<!-- quote: crates/nonius-core/README.md -->
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// Summaries from one millisecond up, eight levels.
+let mut pyramid = Pyramid::new(Width::new(1_000_000)?, 8)?;
+pyramid.extend_sorted(series.iter())?;
+<span class="boring">}</span></code></pre>
+<h2 id="o-que-custa"><a class="header" href="#o-que-custa">O que custa</a></h2>
+<p>Um bucket tem 64 bytes. O nível 0 de uma base de um segundo sobre um
+ano de pontos a cada segundo tem 31,5 milhões deles — tantos quanto os
+pontos, com quase três vezes o tamanho. Esse nível não rende nada: um
+bucket de um ponto é o ponto. Por isso o <code>nonius-server</code> libera um
+nível cujos buckets têm em média menos de 4 pontos (<code>--sparse 4</code>, o
+padrão) — qualquer nível menos o do topo, que ele sempre mantém — e
+responde uma vista nessa profundidade com os próprios pontos. Cada
+nível acima tem um quarto dos buckets do de baixo, então o resto da
+pirâmide junto custa mais ou menos um terço do primeiro nível mantido.</p>
+<p>No exemplo de <a href="#servir">Servir</a>, isso dá: 24 bytes por ponto para os
+próprios pontos, 16 para o nível 1 (um bucket de 64 bytes a cada 4
+pontos), e uns 5 para os níveis acima — 45 bytes por ponto.</p>
+<p><a href="#servir">Servir</a> mostra um servidor construindo uma pirâmide e
+dizendo o que manteve.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<p class="lang"><a href="../../guides/serving.html" hreflang="en" lang="en">English</a></p>
+
+<h1 id="servir"><a class="header" href="#servir">Servir</a></h1>
+<p>Um servidor guarda uma série e responde a pedidos pequenos sobre ela: a
+sua descrição, tiles para um gráfico no navegador e imagens. O
+protocolo é HTTP <code>GET</code> simples, então qualquer cliente, cache ou proxy o
+entende. O <code>nonius-server</code> é o servidor de referência, um programa que
+você instala pelo Cargo:</p>
+<!-- quote: crates/check-registry.sh -->
+<pre><code class="language-sh">cargo install nonius-server
+</code></pre>
+<p>Este capítulo serve as leituras de <a href="#seus-dados">Seus dados</a>: um ponto
+por milissegundo durante 100 segundos, num CSV.</p>
+<h2 id="de-um-csv-a-um-servidor-no-ar"><a class="header" href="#de-um-csv-a-um-servidor-no-ar">De um CSV a um servidor no ar</a></h2>
+<!-- quote: crates/check-examples.sh -->
+<pre><code class="language-sh">nonius-server csv readings.csv readings.nsb
+nonius-server build readings.nsb readings.pyr.nsb --base-ns 1000000 --levels 4
+nonius-server verify readings.pyr.nsb
+</code></pre>
+<p>A primeira linha escreve o arquivo de série. A segunda constrói um
+<strong>arquivo de pirâmide</strong>: a série e a sua <a href="#a-pirâmide">pirâmide</a>,
+guardadas como os <a href="#tile">tiles</a> do protocolo, então um tile
+é lido direto dele. A terceira confere os
+hashes e constrói a pirâmide de novo para comparar. Cada uma diz o que
+fez:</p>
+<!-- not run: what the commands above print, times aside -->
+<pre><code class="language-text">readings.nsb: 100000 points from readings.csv; 2 decimal places, the most any value has; in time order
+readings.pyr.nsb: 100000 points, 3 levels kept from level 1, 32810 buckets; 4.5 MB, 45.0 B a point
+</code></pre>
+<p>Os pontos estão a um milissegundo de distância, então a base é um
+milissegundo. O nível 0 teria um ponto por bucket, e foi liberado (veja
+<a href="#o-que-custa">O que custa</a>): três níveis ficam.</p>
+<p>Um servidor também pode servir o arquivo de série simples, construindo
+a pirâmide na memória ao iniciar. Um arquivo de pirâmide é construído
+uma vez e depois mapeado: o servidor inicia na hora, seja qual for o
+tamanho, e só as partes que um pedido lê vão para a memória.</p>
+<!-- quote: crates/check-examples.sh -->
+<pre><code class="language-sh">nonius-server readings.pyr.nsb --id readings --addr 127.0.0.1:8080 &amp;
+</code></pre>
+<p>O <code>&amp;</code> o deixa rodando em segundo plano, para os comandos abaixo. O id
+de uma série é o nome do arquivo, a menos que <code>--id</code> dê outro; vários
+arquivos servem várias séries.</p>
+<h2 id="perguntar-a-ele"><a class="header" href="#perguntar-a-ele">Perguntar a ele</a></h2>
+<p>A descrição da série, os seus <em>metadados</em>:</p>
+<!-- quote: crates/check-examples.sh -->
+<pre><code class="language-sh">curl -s http://127.0.0.1:8080/v1/series/readings
+</code></pre>
+<!-- not run: the answer to the command above -->
+<pre><code class="language-json">{"protocol":1,"series":"readings","base_ns":"1000000","levels":4,"ratio":4,"tile_columns":2048,"raw_tile_ns":"4096000000","max_k":4096,"v_exponent":2,"rows":"100000","first_t":"1760000000000000000","last_t":"1760000099999000004","last":{"t":"1760000099999000004","v":"10099","w":"1"}}
+</code></pre>
+<p>Os inteiros de 64 bits são strings, porque números JSON perdem precisão
+depois de 2⁵³. O <code>attachTiles</code> do navegador lê isso primeiro, depois
+pede tiles: <code>/v1/series/{id}/columns/{level}/{k}/{i}</code> para resumos e
+<code>/v1/series/{id}/raw/{i}</code> para pontos. Os endereços e o conteúdo deles
+são as seções 4 e 5 do
+<a href="https://github.com/andrelaf/nonius-site/blob/main/specs/protocol.md">protocolo</a>;
+o gráfico os calcula sozinho, e você nunca escreve um à mão.</p>
+<p>Uma imagem dos 100 segundos inteiros, clara, com título e unidade:</p>
+<!-- quote: crates/check-examples.sh -->
+<pre><code class="language-sh">image='http://127.0.0.1:8080/v1/series/readings/png?from=1760000000000000000&amp;to=1760000100000000000&amp;width=1600&amp;height=600&amp;ratio=2&amp;theme=light&amp;title=Readings&amp;unit=%C2%B0C'
+curl -s -o readings.png "$image"
+</code></pre>
+<p><code>from</code> e <code>to</code> são o tempo mostrado, <code>[from, to)</code>: o <code>to</code> não entra,
+então a série inteira termina no tempo do último ponto mais um, ou
+depois. <code>width</code> e <code>height</code> são os pixels do próprio PNG; <code>ratio=2</code> desenha
+rótulos e linhas para uma tela de dois pixels do dispositivo por pixel
+CSS, então essa imagem preenche uma caixa de 800 × 300 numa tela assim.
+A unidade <code>°C</code> vai codificada com porcentagem, como o <code>URLSearchParams</code>
+do navegador escreve. O tema é escuro, a menos que venha
+<code>theme=light</code>. Todo parâmetro está na <a href="https://crates.io/crates/nonius-server">página do
+<code>nonius-server</code></a>; um que o
+servidor não conhece é ignorado, então um erro de digitação
+(<code>timezone=</code> em vez de <code>tz=</code>) volta em silêncio ao padrão.</p>
+<h2 id="cache"><a class="header" href="#cache">Cache</a></h2>
+<p>Um tile ou uma imagem nunca muda: o mesmo endereço sempre responde os
+mesmos bytes. O servidor diz isso — <code>Cache-Control: public, max-age=31536000, immutable</code> — e dá a cada resposta um <code>ETag</code>, um hash
+dos seus bytes. Um cliente que já a tem pergunta com a etiqueta e
+recebe <code>304 Not Modified</code>, sem corpo:</p>
+<!-- quote: crates/check-examples.sh -->
+<pre><code class="language-sh">etag=$(curl -s -o /dev/null -w '%header{etag}' "$image")
+curl -s -o /dev/null -w '%{http_code}\n' -H "If-None-Match: $etag" "$image"
+</code></pre>
+<p>Isso imprime <code>304</code>. Então um navegador, um proxy ou uma CDN podem
+guardar tiles e imagens pelo tempo que quiserem. Os metadados são a
+exceção: dizem <code>no-cache</code>, porque uma série que cresce muda o seu
+último ponto.</p>
+<h2 id="uma-página-em-outra-origem"><a class="header" href="#uma-página-em-outra-origem">Uma página em outra origem</a></h2>
+<p>Uma página servida de um endereço só lê um servidor em outro se o
+servidor permitir. O <code>nonius-server</code> permite qualquer página: toda
+resposta leva <code>Access-Control-Allow-Origin: *</code>, expõe o seu <code>ETag</code> e os
+cabeçalhos da imagem aos scripts (<code>Access-Control-Expose-Headers</code>), e
+<code>Cross-Origin-Resource-Policy: cross-origin</code>, então uma página que se
+isola para a memória compartilhada do feed ao vivo ainda consegue lê-lo.</p>
+<p>Uma imagem também diz onde está o seu gráfico: <code>Nonius-Plot: x y width height</code>, o retângulo do gráfico nos pixels da imagem, e <code>Nonius-Range: lo hi</code>, os valores nas suas linhas de baixo e de cima. Uma página que
+mostra o PNG transforma um clique num tempo e num valor com eles, e
+pede ao <code>/pick</code> do servidor o ponto embaixo dele.</p>
+<h2 id="em-produção"><a class="header" href="#em-produção">Em produção</a></h2>
+<p>O <code>nonius-server</code> é a referência do protocolo e um apoio de testes, não
+um servidor de produção: sem TLS, sem limite de conexões, uma thread
+por conexão. Diante de usuários, coloque-o atrás de um proxy reverso
+que cuide do TLS e limite as conexões; como toda resposta, menos os
+metadados, é imutável, o proxy pode guardar todas em cache.</p>
+<p>Para um servidor seu, dois caminhos:</p>
+<ul>
+<li><strong>O protocolo dentro do seu programa Rust</strong>, pela biblioteca do
+crate:</li>
+</ul>
+<!-- quote: crates/nonius-server/README.md -->
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let served = Served::new("day", (t, v, w), 2, Options::default())?;
+<span class="boring">}</span></code></pre>
+<p><code>served.answer(&amp;request)</code> responde a um pedido sem socket, e <code>serve</code>
+o coloca num <code>TcpListener</code>; <a href="https://crates.io/crates/nonius-server">a página do
+crate</a> mostra os dois.</p>
+<ul>
+<li><strong>O protocolo em qualquer linguagem.</strong> Ele foi escrito para ser
+implementado sem o código do Nonius: <a href="https://github.com/andrelaf/nonius-site/blob/main/specs/protocol.md">o
+protocolo</a>
+dá cada endereço, byte e regra, e as imagens são desenhadas pelo
+pacote .NET como pelo Rust.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<p class="lang"><a href="../../guides/drawing.html" hreflang="en" lang="en">English</a></p>
+
+<h1 id="desenhar"><a class="header" href="#desenhar">Desenhar</a></h1>
+<p>Um núcleo Rust transforma uma vista no que um quadro desenha, em todo
+lugar onde o Nonius roda. No navegador, ele é compilado para
+WebAssembly e desenha com WebGPU, com WebGL2 onde falta WebGPU, e na
+CPU num canvas 2D quando o navegador não dá nenhum dos dois. No .NET e
+no C, é uma biblioteca nativa. Como imagem, desenha na CPU num PNG.
+Todos desenham o mesmo quadro: os mesmos eixos, rótulos, mira e
+legenda, desenhados pelo próprio gráfico e nunca sobrepostos a ele como
+HTML.</p>
+<p>Então a escolha abaixo é só onde o seu programa vive.</p>
+<h2 id="no-navegador"><a class="header" href="#no-navegador">No navegador</a></h2>
+<p>O pacote npm <code>nonius</code> desenha num <code>&lt;canvas&gt;</code>. Duas regras valem em toda
+página: <strong>a caixa dá o tamanho ao canvas</strong>, nunca os pixels do próprio
+canvas; e a página é <strong>servida por HTTP</strong>, já que um módulo e o seu
+WebAssembly não carregam de <code>file://</code>.</p>
+<!-- quote: examples/web/sources/page.html -->
+<pre><code class="language-html">&lt;!-- Names the package for the browser, as a bundler would. --&gt;
+&lt;script type="importmap"&gt;{ "imports": { "nonius": "./node_modules/nonius/index.js" } }&lt;/script&gt;
+&lt;style&gt;
+  /* The box gives the canvas its size; the chart draws at that size in
+     device pixels and follows it. */
+  .plot { position: relative; height: 400px; }
+  .plot canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+&lt;/style&gt;
+&lt;div class="plot"&gt;&lt;canvas&gt;&lt;/canvas&gt;&lt;/div&gt;
+&lt;script type="module"&gt;
+  import { fromPoints } from "./points.js";
+  await fromPoints(document.querySelector("canvas"));
+&lt;/script&gt;
+</code></pre>
+<p>Essa é uma página inteira. O import map diz ao navegador onde está o
+<code>"nonius"</code>; com um bundler (Vite, webpack), o bundler faz isso. O módulo
+que ela carrega cria o gráfico, entrega os pontos por qualquer
+<a href="#escolha-o-caminho">caminho</a> — o módulo dos tiles ali está inteiro — e
+deixa a pessoa explorar com o <code>interact</code>: arrastar para mover, roda do
+mouse ou dois dedos para o zoom, passar o cursor para a mira. Um
+gráfico alimentado por tiles entrega os tiles ao <code>interact</code>,
+<code>interact(chart, canvas, { tiles })</code>, para que mover busque o que a
+nova vista precisa.</p>
+<p>As opções do gráfico vão para o <code>createChart</code>, e cada uma tem um método
+para mudá-la depois:
+<code>createChart(canvas, { theme: "light", timeZone: "America/Sao_Paulo", title: "Estufa 2", unit: "°C" })</code>,
+e depois <code>setTheme</code>, <code>setTimeZone(chart, name)</code>, <code>setTitle</code> e
+<code>setUnit</code>. Toda opção, tipada e documentada, está no <code>index.d.ts</code> do
+pacote.</p>
+<h3 id="react"><a class="header" href="#react">React</a></h3>
+<p>O gráfico é criado de forma assíncrona (ele espera o seu WebAssembly) e
+tem memória fora da do JavaScript, então um componente o cria num
+efeito e o libera na limpeza do efeito — também quando a limpeza vem
+antes, como o modo de desenvolvimento do React faz de propósito:</p>
+<!-- quote: examples/web/react/src/TimeSeries.tsx -->
+<pre><code class="language-tsx">createChart(element).then((made) =&gt; {
+  if (disposed) {
+    made.free();
+    return;
+  }
+  chart = made;
+  chart.setScale(decimals);
+  chart.push(points.t, points.v, points.w);
+</code></pre>
+<!-- quote: examples/web/react/src/TimeSeries.tsx -->
+<pre><code class="language-tsx">return () =&gt; {
+  disposed = true;
+  interaction?.stop();
+  chart?.free();
+};
+</code></pre>
+<h3 id="vue"><a class="header" href="#vue">Vue</a></h3>
+<p>O mesmo, em <code>onMounted</code> e <code>onBeforeUnmount</code>, com uma regra própria do
+Vue: guarde o gráfico numa variável simples, não num <code>ref</code>.</p>
+<!-- quote: examples/web/vue/src/TimeSeries.vue -->
+<pre><code class="language-ts">// Plain variables, not refs: Vue would wrap the chart in a proxy, and the
+// chart's methods must be called on the chart itself.
+let chart: Chart | undefined;
+let interaction: ReturnType&lt;typeof interact&gt; | undefined;
+</code></pre>
+<p>Os dois componentes estão inteiros nos exemplos de React e Vue do
+pacote, rodando com o Vite e só o plug-in do próprio framework: o
+WebAssembly não precisa de plug-in nenhum.</p>
+<h2 id="no-net"><a class="header" href="#no-net">No .NET</a></h2>
+<p>O pacote NuGet <code>Nonius</code> traz o núcleo nativo para Windows x64 e Linux
+x64. Sobre ele, dois controles.</p>
+<p><strong>Avalonia</strong>, para uma janela de desktop (<code>Nonius.Avalonia</code>):</p>
+<!-- quote: dotnet/tests/Nonius.Avalonia.Tests/QuickStart.cs -->
+<pre><code class="language-csharp">var series = Series.FromNsb(File.ReadAllBytes(nsb));
+var chart = new NoniusChart { Series = series };
+chart.PointPicked += (_, point) =&gt; Console.WriteLine(point);
+window.Content = chart;
+</code></pre>
+<p><strong>Blazor WebAssembly</strong>, para uma página (<code>Nonius.Blazor</code>), que usa o
+pacote do navegador por baixo:</p>
+<!-- quote: dotnet/examples/Nonius.Blazor.Example/Home.razor -->
+<pre><code class="language-razor">&lt;NoniusChart @ref="chart" Nsb="day-4096.nsb" Start="First" End="Last" Theme="theme" Gap="gap"
+             TimeZone="zone" Title="@title" Unit="@unit"
+             ViewChanged="Changed" style="display: block; width: 800px; height: 400px" /&gt;
+</code></pre>
+<p>Tempos e valores passam entre o .NET e a página como strings decimais,
+nunca como números JavaScript, que arredondariam um tempo em
+nanossegundos de hoje para 256 ns.</p>
+<h2 id="a-partir-do-c"><a class="header" href="#a-partir-do-c">A partir do C</a></h2>
+<p>O <code>nonius-capi</code> é o núcleo atrás de uma interface C: um cabeçalho, o
+<code>nonius.h</code>, e uma biblioteca para ligar. Os pacotes .NET são feitos
+sobre ele, e qualquer outra linguagem que chama C — o <code>ctypes</code> do
+Python, o cgo do Go, o FFM do Java — chega ao Nonius do mesmo jeito. Um
+arquivo de série desenhado como PNG:</p>
+<!-- quote: crates/nonius-capi/tests/c/readme.c -->
+<pre><code class="language-c">NoniusSeries *series = NULL;
+/* Summaries from one second up, nine levels. */
+int32_t status = nonius_series_from_nsb(bytes, len, 1000000000, 9, &amp;series);
+if (status != NONIUS_OK) {
+    fprintf(stderr, "%s\n", nonius_status_message(status));
+    return 1;
+}
+</code></pre>
+<p>Toda chamada devolve um status; <code>nonius_status_message</code> o diz em
+palavras. O programa inteiro, e como compilá-lo com MSVC ou gcc, estão
+na <a href="https://crates.io/crates/nonius-capi">página do <code>nonius-capi</code></a>.</p>
+<h2 id="como-imagem"><a class="header" href="#como-imagem">Como imagem</a></h2>
+<p>Uma <em>still</em> é um quadro desenhado na CPU, sem janela e sem GPU,
+codificado como PNG: para um relatório, um e-mail, a resposta de um
+servidor. Quatro caminhos para a mesma imagem:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>De</th><th>Como</th></tr>
+</thead>
+<tbody>
+<tr><td>Um servidor</td><td><code>GET /v1/series/{id}/png?…</code> (<a href="#perguntar-a-ele">Servir</a>)</td></tr>
+<tr><td>.NET</td><td><code>series.StillPng(new Still(…))</code> (<a href="#uma-imagem">Escolha o caminho</a>)</td></tr>
+<tr><td>C</td><td><code>nonius_still_png(series, &amp;still, &amp;png)</code></td></tr>
+<tr><td>Rust</td><td><code>nonius_render::still_png</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>No Rust, uma still diz tudo o que um quadro precisa:</p>
+<!-- quote: crates/nonius-render/README.md -->
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let png = still_png(&amp;series, &amp;Still {
+    start: 0,
+    end: 1_000_000_000,
+    width: 640,
+    height: 320,
+    theme: Theme::dark(),
+    ratio: 1.0,
+    scale: Scale::new(2)?,
+    gap: None,
+    zone: Zone::UTC,
+    title: None,
+    unit: None,
+})?;
+<span class="boring">}</span></code></pre>
+<p><code>width</code> e <code>height</code> são os pixels da própria imagem; <code>ratio</code> é a razão
+de pixels da tela a que ela se destina, que escala os rótulos e as
+linhas, não a imagem.</p>
+<h2 id="o-mesmo-gráfico-em-todo-lugar"><a class="header" href="#o-mesmo-gráfico-em-todo-lugar">O mesmo gráfico em todo lugar</a></h2>
+<p>Cada opção tem o mesmo sentido em todo pacote, e o mesmo padrão:
+escuro, UTC, todo ponto ligado, sem cabeçalho.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th>Navegador</th><th>.NET</th><th>Imagem do servidor</th></tr>
+</thead>
+<tbody>
+<tr><td>Tema</td><td><code>theme: "light"</code></td><td><code>Theme.Light</code></td><td><code>theme=light</code></td></tr>
+<tr><td>Fuso</td><td><code>timeZone: "Europe/Lisbon"</code></td><td>um <code>TimeZoneInfo</code></td><td><code>tz=Europe/Lisbon</code></td></tr>
+<tr><td>Lacuna</td><td><code>setSeriesGap(0, ns)</code>, <code>ns</code> um <code>BigInt</code></td><td><code>Gap</code></td><td><code>gap=</code></td></tr>
+<tr><td>Título, unidade</td><td><code>title</code>, <code>unit</code> do <code>createChart</code></td><td><code>Title</code>, <code>Unit</code></td><td><code>title=</code>, <code>unit=</code></td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
+<p class="lang"><a href="../../guides/glossary.html" hreflang="en" lang="en">English</a></p>
+
+<h1 id="glossário"><a class="header" href="#glossário">Glossário</a></h1>
+<p>As palavras que estes guias usam, cada uma explicada para quem a vê
+pela primeira vez. Uma palavra em <em>itálico</em> tem a sua própria entrada.
+Os termos ficam em inglês quando é assim que aparecem no código.</p>
+<h2 id="backend"><a class="header" href="#backend">Backend</a></h2>
+<p>A parte do navegador com que o gráfico desenha: <em>WebGPU</em> onde o
+navegador tem, <em>WebGL2</em> onde não tem, e um <em>canvas 2D</em> desenhado na CPU
+quando não tem nenhum dos dois. O gráfico escolhe o melhor sozinho;
+todo backend desenha o mesmo quadro.</p>
+<h2 id="base"><a class="header" href="#base">Base</a></h2>
+<p>A largura de tempo dos <em>buckets</em> mais finos da <em>pirâmide</em>, o seu nível
+0 — um segundo por padrão. Escolha mais ou menos o espaçamento dos seus
+pontos: veja <a href="#escolher-a-base-e-os-níveis">a pirâmide</a>.</p>
+<h2 id="bucket"><a class="header" href="#bucket">Bucket</a></h2>
+<p>Um resumo dos pontos de um trecho de tempo em oito números: o tempo e o
+valor do primeiro e do último ponto, o menor e o maior valor, quantos
+pontos, e a soma dos pesos. Dois buckets vizinhos se juntam num só sem
+voltar aos pontos.</p>
+<h2 id="abi-em-c"><a class="header" href="#abi-em-c">ABI em C</a></h2>
+<p>A <em>Application Binary Interface</em>: como um programa compilado chama uma
+biblioteca — que funções existem, e como os argumentos ficam na
+memória. O <code>nonius-capi</code> dá ao Nonius uma em C, então qualquer
+linguagem que chama C pode usá-lo. O número de versão muda quando esse
+arranjo muda.</p>
+<h2 id="coluna"><a class="header" href="#coluna">Coluna</a></h2>
+<p>Uma coluna de pixels do gráfico. Uma vista distribui o seu intervalo de
+tempo pelas colunas, e o gráfico lê um resumo por coluna.</p>
+<h2 id="cors"><a class="header" href="#cors">CORS</a></h2>
+<p><em>Cross-Origin Resource Sharing</em>: a regra pela qual o navegador deixa
+uma página ler um servidor em outro endereço. O servidor diz quem pode,
+em cabeçalhos; o <code>nonius-server</code> permite qualquer página.</p>
+<h2 id="crate"><a class="header" href="#crate">Crate</a></h2>
+<p>Um pacote Rust, publicado no crates.io. O Nonius são sete deles, do
+<code>nonius-format</code> (os bytes) ao <code>nonius-server</code> (o programa).</p>
+<h2 id="pixel-do-dispositivo-e-razão-de-pixels"><a class="header" href="#pixel-do-dispositivo-e-razão-de-pixels">Pixel do dispositivo e razão de pixels</a></h2>
+<p>Os pixels da própria tela. Uma página é diagramada em pixels CSS; numa
+tela nítida, um pixel CSS são dois ou três pixels do dispositivo, a sua
+<em>razão de pixels</em>. O gráfico desenha em pixels do dispositivo, então
+as linhas ficam nítidas.</p>
+<h2 id="etag"><a class="header" href="#etag">ETag</a></h2>
+<p>Uma etiqueta curta que o servidor dá a uma resposta — o
+<code>nonius-server</code> usa um hash dos bytes. Um cliente que já tem a resposta
+pergunta de novo com a etiqueta e recebe <code>304 Not Modified</code>, sem corpo,
+se nada mudou.</p>
+<h2 id="expoente"><a class="header" href="#expoente">Expoente</a></h2>
+<p>Veja <em>escala</em>.</p>
+<h2 id="quadro"><a class="header" href="#quadro">Quadro</a></h2>
+<p>Dois sentidos. Na tela, uma imagem que o gráfico desenha — sessenta por
+segundo enquanto a pessoa arrasta. Num <em>feed ao vivo</em>, uma mensagem
+numerada que traz pontos novos.</p>
+<h2 id="lacuna"><a class="header" href="#lacuna">Lacuna</a></h2>
+<p>O maior tempo entre dois pontos que a linha ainda liga. Além dele, a
+linha quebra. Por padrão todo ponto é ligado; você define a lacuna pelo
+que sabe dos seus dados.</p>
+<h2 id="nível"><a class="header" href="#nível">Nível</a></h2>
+<p>Uma camada da <em>pirâmide</em>. Os <em>buckets</em> do nível 0 têm a largura da
+<em>base</em>; cada nível acima é quatro vezes mais largo.</p>
+<h2 id="feed-ao-vivo"><a class="header" href="#feed-ao-vivo">Feed ao vivo</a></h2>
+<p>Pontos enviados conforme acontecem, por um <em>WebSocket</em>, em <em>quadros</em>
+numerados. Um quadro que a rede perde é notado pelo número que falta e
+pedido de novo.</p>
+<h2 id="metadados"><a class="header" href="#metadados">Metadados</a></h2>
+<p>A descrição de uma série, como um servidor a responde em JSON: o
+intervalo de tempo, a escala, a pirâmide, o último ponto. O gráfico os
+lê antes de qualquer <em>tile</em>.</p>
+<h2 id="nsb1"><a class="header" href="#nsb1">NSB1</a></h2>
+<p>O formato de arquivo de série do Nonius: as três colunas dos pontos
+(tempo, valor, peso), a <em>escala</em> e uma soma de verificação, num
+contêiner cujos primeiros bytes são <code>NONIUSB1</code>. É lido onde cai na
+memória, sem etapa de decodificação. O arquivo costuma terminar em
+<code>.nsb</code>.</p>
+<h2 id="pick"><a class="header" href="#pick">Pick</a></h2>
+<p>Achar o ponto embaixo do cursor: o gráfico faz isso para a mira, e um
+servidor responde <code>/pick</code> para uma página que mostra a sua imagem.</p>
+<h2 id="ponto"><a class="header" href="#ponto">Ponto</a></h2>
+<p>A única coisa que todo pacote recebe: <code>t</code>, <code>v</code> e <code>w</code>, três inteiros —
+um tempo em nanossegundos desde 1970 (UTC), um valor, um peso.</p>
+<h2 id="protocolo"><a class="header" href="#protocolo">Protocolo</a></h2>
+<p>As regras para perguntar a um servidor sobre uma série por HTTP: que
+endereços existem e que bytes cada um responde. Escrito para ser
+implementado sem o código do Nonius; o <code>nonius-server</code> é a referência.</p>
+<h2 id="pirâmide"><a class="header" href="#pirâmide">Pirâmide</a></h2>
+<p>Uma série resumida em várias larguras de tempo, cada <em>nível</em> quatro
+vezes mais largo que o de baixo, para que uma vista de qualquer tamanho
+leia alguns milhares de <em>buckets</em> em vez de todos os pontos — e
+desenhe exatamente a mesma linha.</p>
+<h2 id="arquivo-de-pirâmide"><a class="header" href="#arquivo-de-pirâmide">Arquivo de pirâmide</a></h2>
+<p>Uma série e a sua <em>pirâmide</em> construída num arquivo só, guardadas nas
+colunas do próprio <em>protocolo</em>. Um servidor o mapeia e inicia na hora,
+seja qual for o tamanho.</p>
+<h2 id="pontos-crus"><a class="header" href="#pontos-crus">Pontos crus</a></h2>
+<p>Os próprios pontos, não resumos. Uma vista funda o bastante num zoom
+os lê.</p>
+<h2 id="escala"><a class="header" href="#escala">Escala</a></h2>
+<p>Quantas casas decimais os valores de uma série têm. Com escala 2, o
+inteiro <code>2137</code> quer dizer 21,37. Também chamada de <em>expoente</em>.</p>
+<h2 id="série"><a class="header" href="#série">Série</a></h2>
+<p>Os pontos de uma grandeza ao longo do tempo, em ordem de tempo: um
+sensor, um instrumento, uma métrica.</p>
+<h2 id="still"><a class="header" href="#still">Still</a></h2>
+<p>Um quadro desenhado na CPU como imagem PNG, sem janela e sem GPU.</p>
+<h2 id="tile"><a class="header" href="#tile">Tile</a></h2>
+<p>Um pedaço pequeno de uma série cortado para uma vista, para que o
+gráfico busque só o que a tela mostra. Um tile de <em>colunas</em> guarda
+resumos de um <em>nível</em>; um tile cru guarda os <em>pontos crus</em> de um trecho
+de tempo.</p>
+<h2 id="fuso-horário"><a class="header" href="#fuso-horário">Fuso horário</a></h2>
+<p>A regra de um lugar para o seu horário local, com o nome do banco de
+dados IANA, como <code>Europe/Lisbon</code>. O Nonius guarda todo tempo em UTC; um
+fuso muda só os rótulos.</p>
+<h2 id="webassembly"><a class="header" href="#webassembly">WebAssembly</a></h2>
+<p>Um formato compacto de programa que o navegador roda quase na
+velocidade nativa. O núcleo Rust do Nonius é compilado para ele, então
+o navegador roda o mesmo código que o servidor. Muitas vezes escrito
+<em>wasm</em>.</p>
+<h2 id="webgl2-e-webgpu"><a class="header" href="#webgl2-e-webgpu">WebGL2 e WebGPU</a></h2>
+<p>As duas formas do navegador desenhar na placa de vídeo. O WebGPU é o
+mais novo; o WebGL2 está em todo lugar. Veja <em>backend</em>.</p>
+<h2 id="websocket"><a class="header" href="#websocket">WebSocket</a></h2>
+<p>Uma conexão que a página mantém aberta com um servidor, para que o
+servidor mande dados no momento em que os tem. Um <em>feed ao vivo</em> roda
+sobre um.</p>
+<h2 id="peso"><a class="header" href="#peso">Peso</a></h2>
+<p>O <code>w</code> de um ponto: quanto ele conta — 1 para uma leitura simples, o
+volume de uma negociação. Os resumos somam os pesos.</p>
+<h2 id="canvas-2d"><a class="header" href="#canvas-2d">Canvas 2D</a></h2>
+<p>A superfície de desenho simples do navegador, desenhada pela CPU. O
+último <em>backend</em> do gráfico, usado quando o navegador não tem WebGPU
+nem WebGL2.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+
+    </div>
+    </body>
+</html>

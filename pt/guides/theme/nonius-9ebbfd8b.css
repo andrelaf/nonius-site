@@ -1,0 +1,19 @@
+/* Both books in the site's colours (site/style.css): the brand's brass
+   for links and the sidebar's current page, the charts' blue left to
+   the charts. */
+.light {
+  --links: #9a6110;
+  --sidebar-active: #9a6110;
+  --inline-code-color: #1f2328;
+  --quote-border: #d0d7de;
+}
+.navy, .coal {
+  --bg: #0d1117;
+  --sidebar-bg: #010409;
+  --links: #e3a33b;
+  --sidebar-active: #e3a33b;
+  --inline-code-color: #e6edf3;
+}
+
+/* The switch to the other language, at the top of every page. */
+.lang { float: right; margin-top: 0; font-size: 0.9em; }

@@ -1,0 +1,407 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Seus dados - Guias do Nonius</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-ec15c580.svg">
+        <link rel="shortcut icon" href="favicon-487aa1c1.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/nonius-9ebbfd8b.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-b48cda15.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-a99c64e8.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Guias do Nonius</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <p class="lang"><a href="../../guides/your-data.html" hreflang="en" lang="en">English</a></p>
+
+<h1 id="seus-dados"><a class="header" href="#seus-dados">Seus dados</a></h1>
+<p>Todo pacote recebe a mesma coisa: pontos <code>{ t, v, w }</code>, em ordem de
+tempo. Uma leitura de sensor, uma negociação e uma amostra de CPU
+entram assim, e o Nonius nunca sabe qual é qual. Este capítulo mostra
+como suas leituras viram pontos, e como pontos viram um arquivo de
+série.</p>
+<h2 id="um-ponto"><a class="header" href="#um-ponto">Um ponto</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Campo</th><th>O que é</th><th>Tipo</th></tr>
+</thead>
+<tbody>
+<tr><td><code>t</code></td><td>o tempo: nanossegundos desde 1970-01-01 00:00 UTC</td><td>um inteiro de 64 bits com sinal</td></tr>
+<tr><td><code>v</code></td><td>o valor: um inteiro com um número fixo de casas decimais</td><td>um inteiro de 64 bits com sinal</td></tr>
+<tr><td><code>w</code></td><td>o peso: 1 para uma leitura simples</td><td>um inteiro de 64 bits sem sinal</td></tr>
+</tbody>
+</table>
+</div>
+<p>Os três são inteiros, e esse é o sentido do formato: nada passa por um
+número de ponto flutuante a caminho da tela, então nada é arredondado.</p>
+<h2 id="tempo"><a class="header" href="#tempo">Tempo</a></h2>
+<p>Um tempo é uma contagem de nanossegundos desde a época Unix, em UTC —
+nunca um horário local. Uma contagem de 64 bits alcança uns 292 anos
+para cada lado de 1970 e guarda cada nanossegundo: uma vista de poucos
+nanossegundos em 2026 ainda desenha cada ponto onde ele está. Esse é o
+“exato em qualquer zoom” do Nonius.</p>
+<p>Converter é uma multiplicação:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>De</th><th>Para nanossegundos</th></tr>
+</thead>
+<tbody>
+<tr><td>Segundos Unix</td><td>× 1.000.000.000</td></tr>
+<tr><td><code>Date.parse</code> do JavaScript (milissegundos)</td><td>× 1.000.000, como <code>BigInt</code></td></tr>
+<tr><td><code>DateTime</code> do .NET (UTC)</td><td><code>(time - DateTime.UnixEpoch).Ticks * 100</code></td></tr>
+<tr><td>Um texto ISO 8601, num CSV</td><td>o <code>nonius-server csv</code> lê, com <code>Z</code> ou um deslocamento como <code>-03:00</code>, e até nove casas decimais de segundo</td></tr>
+</tbody>
+</table>
+</div>
+<p>Os pontos vêm em ordem de tempo. Dois pontos podem ter o mesmo tempo; um
+ponto anterior ao que veio antes é recusado, com a linha onde aconteceu.</p>
+<h2 id="valores"><a class="header" href="#valores">Valores</a></h2>
+<p>Um valor é um inteiro, e a série diz quantas casas decimais ele tem: a
+sua <em>escala</em> (também chamada de expoente). Com duas casas, 21,37 °C é
+<code>2137</code>; com três, uma tensão de 4,217 é <code>4217</code>. A escala é um número só
+para a série inteira, escolhido uma vez: o máximo de casas decimais que
+seus valores têm.</p>
+<p>Por que não um número de ponto flutuante? Porque nele <code>0.1 + 0.2</code> não é
+<code>0.3</code>, e um gráfico que resume milhões de pontos levaria esses erros até
+os rótulos. Um inteiro é exato, e a escala só põe a vírgula de volta
+quando um rótulo é desenhado.</p>
+<p>Um inteiro de 64 bits guarda até uns 9,2 × 10¹⁸: com duas casas
+decimais, valores até uns 92 quatrilhões. Escolher mais casas do que
+seus dados têm só custa alcance.</p>
+<h2 id="o-peso"><a class="header" href="#o-peso">O peso</a></h2>
+<p><code>w</code> é quanto um ponto conta. Para uma leitura, é 1. Para uma
+negociação, pode ser o volume. Os <a href="pyramid.html">resumos</a> do gráfico somam os pesos,
+então o resumo de um minuto sabe quanto aconteceu nele, não só a máxima
+e a mínima. Quando fica de fora (no <code>encodeNsb</code> do JavaScript, num CSV
+sem coluna de peso), todo peso é 1.</p>
+<h2 id="lacunas"><a class="header" href="#lacunas">Lacunas</a></h2>
+<p>A linha liga cada ponto ao seguinte, por mais distantes que estejam. Um
+sensor que manda dados em rajadas, ou que ficou desligado por um dia, é
+desenhado como uma linha contínua, a menos que você diga onde ela
+quebra: <code>chart.setSeriesGap(0, 60_000_000_000n)</code> no navegador (o id da
+série, 0 para a primeira, e depois nanossegundos como <code>BigInt</code>), <code>gap=</code>
+na imagem de um servidor, <code>Gap</code> no .NET. A linha quebra sempre que um
+ponto vem mais que esses nanossegundos depois do anterior.</p>
+<p>O gráfico não adivinha a lacuna: você conhece o ritmo dos seus dados, e
+um palpite quebraria a linha em lugares diferentes em zooms diferentes.
+Algumas vezes o espaçamento normal é um bom começo: para uma leitura a
+cada 10 segundos, um minuto mantém ligadas uma ou duas leituras
+perdidas e ainda quebra numa interrupção.</p>
+<h2 id="fusos-horários"><a class="header" href="#fusos-horários">Fusos horários</a></h2>
+<p>Os dados estão sempre em UTC. Um fuso muda só os rótulos: diga qual
+(<code>timeZone: "Europe/Lisbon"</code> no navegador, <code>tz=</code> na imagem de um
+servidor, um <code>TimeZoneInfo</code> no .NET) e o eixo, a mira e o tooltip leem
+o relógio local, dos dois lados de cada entrada e saída do horário de
+verão.</p>
+<h2 id="escrever-um-arquivo-de-série"><a class="header" href="#escrever-um-arquivo-de-série">Escrever um arquivo de série</a></h2>
+<p>Um arquivo de série — formato <code>NSB1</code> — guarda as três colunas, a escala
+e uma soma de verificação. Todo pacote escreve os mesmos bytes para os
+mesmos pontos, pelo mesmo código Rust, então um arquivo escrito no .NET
+é lido pelo navegador e servido pelo <code>nonius-server</code> sem nenhuma etapa
+no meio.</p>
+<h3 id="de-um-csv-sem-código"><a class="header" href="#de-um-csv-sem-código">De um CSV, sem código</a></h3>
+<p>O <code>nonius-server</code> transforma um CSV num arquivo de série. Cada linha é
+um tempo e um valor, com ou sem cabeçalho:</p>
+<!-- not run: a file's contents, not a command -->
+<pre><code class="language-text">time,price
+1788220800000000000,101.25
+1788220800000001500,99.5
+</code></pre>
+<!-- quote: crates/check-registry.sh -->
+<pre><code class="language-sh">nonius-server csv prices.csv prices.nsb
+nonius-server csv sheet.csv day.nsb --delimiter ';' --time time --value price --weight volume
+</code></pre>
+<p>A primeira linha toma a primeira coluna como tempo e a segunda como
+valor. A segunda dá nome às colunas da exportação de uma planilha, com
+<code>;</code> entre os campos e vírgula decimal. Nada é arredondado: o valor é
+guardado com o máximo de casas decimais que algum valor do arquivo tem.
+As opções (<code>--time-unit</code>, <code>--decimals</code> e as outras) estão na
+<a href="https://crates.io/crates/nonius-server">página do <code>nonius-server</code></a>.</p>
+<h3 id="do-rust"><a class="header" href="#do-rust">Do Rust</a></h3>
+<!-- quote: crates/nonius-core/README.md -->
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// A reading of 21.37 °C at two decimal places is 2137; w is 1 for a
+// plain reading.
+let points = [Point { t: 1_735_689_600_000_000_000, v: 2137, w: 1 }];
+let file = File::options().read(true).write(true).create(true).truncate(true).open("day.nsb")?;
+write_series(file, &amp;points, Scale::new(2)?)?;
+<span class="boring">}</span></code></pre>
+<p>O <code>write_series</code> está no <code>nonius-core</code>, com a feature <code>std</code>. O arquivo
+é aberto para leitura e escrita: o escritor relê o que escreveu para
+calcular o hash.</p>
+<h3 id="do-net"><a class="header" href="#do-net">Do .NET</a></h3>
+<!-- quote: dotnet/tests/Nonius.Tests/Readings.cs -->
+<pre><code class="language-csharp">(DateTime Time, decimal Celsius)[] readings =
+[
+    (new DateTime(2026, 3, 1, 0, 0, 0, DateTimeKind.Utc), 21.37m),
+    (new DateTime(2026, 3, 1, 0, 0, 1, 500, DateTimeKind.Utc), 21.4m),
+    (new DateTime(2026, 3, 1, 0, 0, 3, DateTimeKind.Utc), -0.05m),
+];
+// A time is nanoseconds since 1970 (UTC), and a tick is 100 of
+// them. A value is an integer of the decimal places kept, here 2:
+// 21.4 is 2140. w is 1 for a plain reading.
+var points = readings
+    .Select(r =&gt; new Point((r.Time - DateTime.UnixEpoch).Ticks * 100, (long)decimal.Round(r.Celsius * 100m), 1))
+    .ToArray();
+using var file = File.Create(path);
+Nsb.Write(file, points, 2);
+</code></pre>
+<p><code>Nsb.Encode(points, 2)</code> dá os mesmos bytes como <code>byte[]</code>. Os dois estão
+no pacote NuGet <code>Nonius</code>.</p>
+<h3 id="do-javascript"><a class="header" href="#do-javascript">Do JavaScript</a></h3>
+<p>No Node (20.16 ou mais novo) ou no navegador, o <code>encodeNsb</code> do pacote
+npm <code>nonius</code>:</p>
+<!-- quote: npm/consumer/readings.mjs -->
+<pre><code class="language-js">const readings = [
+  { time: "2026-03-01T00:00:00Z", celsius: "21.37" },
+  { time: "2026-03-01T00:00:01.5Z", celsius: "21.4" },
+  { time: "2026-03-01T00:00:03Z", celsius: "-0.05" },
+];
+
+// A time is nanoseconds since 1970 (UTC), a BigInt. `Date` counts
+// milliseconds, so a finer time needs its own parsing.
+const nanoseconds = (iso) =&gt; BigInt(Date.parse(iso)) * 1_000_000n;
+
+// A value is an integer of the decimal places you keep, here 2, read
+// from its text and never through a float: "21.4" is 2140.
+function hundredths(text) {
+  const [whole, fraction = ""] = text.split(".");
+  if (fraction.length &gt; 2) throw new Error(`${text} has more than 2 decimal places`);
+  const sign = whole.startsWith("-") ? -1n : 1n;
+  return sign * (BigInt(whole.replace("-", "")) * 100n + BigInt(fraction.padEnd(2, "0")));
+}
+
+const t = BigInt64Array.from(readings, (r) =&gt; nanoseconds(r.time));
+const v = BigInt64Array.from(readings, (r) =&gt; hundredths(r.celsius));
+writeFileSync("readings.nsb", await encodeNsb({ t, v }, 2));
+</code></pre>
+<p>O valor é lido do texto de propósito: <code>Math.round(21.4 * 100)</code> acerta
+aqui, mas um float não guarda todo decimal, e o texto sempre guarda.</p>
+<h2 id="próximo"><a class="header" href="#próximo">Próximo</a></h2>
+<p>Com um arquivo de série, <a href="choose-a-path.html">escolha o caminho</a> até o
+gráfico. Se ele for servido em tiles, <a href="pyramid.html">a pirâmide</a> é como o
+servidor o resume.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="choose-a-path.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="pyramid.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="choose-a-path.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="pyramid.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+
+    </div>
+    </body>
+</html>
